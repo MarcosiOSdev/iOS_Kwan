@@ -1,0 +1,15 @@
+//
+//  Staging.xcconfig
+//  Kwan Challenge
+//
+//  Created by Marcos Felipe Souza on 23/05/19.
+//  Copyright © 2019 Marcos Felipe. All rights reserved.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+//  App Information
+IS_APP_NAME = Kwan Challenge
+IS_APP_VERSION = 1.0
+IS_APP_BUNDLE_ID = com.mfelipesp.Kwan-Challenge
