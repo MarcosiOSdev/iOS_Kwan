@@ -168,7 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				1874702F22976EF300D4C697 /* LaunchScreen.storyboard */,
-				1874706922977D3800D4C697 /* Start */,
+				1874706922977D3800D4C697 /* Home */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -196,13 +196,13 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
-		1874706922977D3800D4C697 /* Start */ = {
+		1874706922977D3800D4C697 /* Home */ = {
 			isa = PBXGroup;
 			children = (
 				1874706E2297836100D4C697 /* HomeViewController.swift */,
 				1874706F2297836100D4C697 /* HomeViewController.xib */,
 			);
-			path = Start;
+			path = Home;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

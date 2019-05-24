@@ -16,6 +16,6 @@ IS_APP_BUNDLE_ID = com.mfelipesp.Kwan-Challenge
 
 
 //Backend information
-BACKEND_URL = http:\/\/api.intensifystudio.com/development
-CONSUMER_KEY = ck_a57e4fa2e14c12ae3f400371cf2951ec3dea5_dev
-CONSUMER_SECRET = cs_c847caa35ce1041e9c69d239141f13f63bb22b_dev
+API_DOMAIN = api.flickr.com
+BACKEND_URL = http:\/\/api.flickr.com/services/rest
+API_KEY = f9cc014fa76b098f9e82f1c288379ea1

@@ -18,14 +18,13 @@ class RestApi: NSObject {
     
     func makeRequest(toURL urlString: String,
                      withHttpMethod httpMethod: HttpMethod,
-                     withHeaders headers: [API.Headers]? = nil,
                      completion: @escaping (_ result: Results) -> Void) {
         
         DispatchQueue.global(qos: .background).async {
             
             guard let url = URL(string: urlString, relativeTo: API.Info.baseURL) else {return}
             let targetURL = self.addURLQueryParameters(toURL: url)
-            self.prepareRequestHttpHeaders(httpMethod, headers)
+            self.prepareRequestHttpHeaders(httpMethod)
         
             let httpBody = self.getHttpBody()
             guard let request = self.prepareRequest(withURL: targetURL, httpBody: httpBody, httpMethod: httpMethod) else
@@ -55,7 +54,7 @@ class RestApi: NSObject {
         }
     }
     
-    private func prepareRequestHttpHeaders(_ httpMethod: HttpMethod, _ headers: [API.Headers]?) {
+    private func prepareRequestHttpHeaders(_ httpMethod: HttpMethod) {
         
         //By Method POST
         switch httpMethod {
@@ -139,9 +138,7 @@ extension RestApi: URLSessionDelegate {
         if challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust
             // and if so, obtain the serverTrust information from that protection space.
             && challenge.protectionSpace.serverTrust != nil
-            && (challenge.protectionSpace.host == "201.16.229.145"
-                || challenge.protectionSpace.host == "homolapi.itausolucoes.com.br"
-                || challenge.protectionSpace.host == "api.itausolucoes.com.br" ){
+            && (challenge.protectionSpace.host == API.Info.domain ){
             let proposedCredential = URLCredential(trust: challenge.protectionSpace.serverTrust!)
             completionHandler(URLSession.AuthChallengeDisposition.useCredential, proposedCredential)
         }

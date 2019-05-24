@@ -12,22 +12,17 @@ struct API {
 }
 
 extension API {
-    enum Info {
+    struct Info {
         static var baseURL: URL {
-            return URL(string: "https://" + AppConfiguration.value(for: "API_BASE_URL"))!
+            return URL(string: AppConfiguration.value(for: "API_BASE_URL"))!
         }
         
         static var key: String {
             return AppConfiguration.value(for: "API_KEY")
         }
-    }
-}
-
-extension API {
-    enum Headers: String {
-        case authorization = "Authorization"
-        case ispParticipacao = "X-ISP-Participacao"
-        case ispAuthorization = "X-ISP-Authorization"
-        case ispDeviceHash = "X-ISP-DeviceHash"
+        
+        static var domain: String {
+            return AppConfiguration.value(for: "API_DOMAIN")
+        }
     }
 }
