@@ -13,16 +13,16 @@ struct API {
 
 extension API {
     struct Info {
-        static var baseURL: URL {
-            return URL(string: AppConfiguration.value(for: "API_BASE_URL"))!
+        static var baseURL: String {
+            return InfoPlist.value(for: "Backend Url")
         }
         
         static var key: String {
-            return AppConfiguration.value(for: "API_KEY")
+            return InfoPlist.value(for: "Api Key")
         }
         
         static var domain: String {
-            return AppConfiguration.value(for: "API_DOMAIN")
+            return InfoPlist.value(for: "Api Domain")
         }
     }
 }

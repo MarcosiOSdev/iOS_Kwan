@@ -5,11 +5,10 @@
 //  Created by Marcos Felipe Souza on 23/05/19.
 //  Copyright © 2019 Marcos Felipe. All rights reserved.
 //
-
 import Foundation
 
 /// AppConfiguration can read Environment Information files (xcconfig).
-struct AppConfiguration {
+struct InfoPlist {
     
     /**
      Return value of key in Environment Information.

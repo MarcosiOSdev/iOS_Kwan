@@ -8,10 +8,10 @@
 
 import Foundation
 
-enum CustomError: Error {
+enum CustomErrorAPI: Error {
     case failedToCreateRequest
 }
-extension CustomError: LocalizedError {
+extension CustomErrorAPI: LocalizedError {
     public var localizedDescription: String {
         switch self {
         case .failedToCreateRequest: return NSLocalizedString("Unable to create the URLRequest object", comment: "")

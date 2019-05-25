@@ -16,6 +16,6 @@ IS_APP_BUNDLE_ID = com.mfelipesp.Kwan-Challenge
 
 
 //Backend information
-API_DOMAIN = api.flickr.com
-BACKEND_URL = http:\/\/api.flickr.com/services/rest
-API_KEY = f9cc014fa76b098f9e82f1c288379ea1
+IS_API_DOMAIN = api.flickr.com
+IS_BACKEND_URL = https:\/\/api.flickr.com/services/rest
+IS_API_KEY = f9cc014fa76b098f9e82f1c288379ea1

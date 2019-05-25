@@ -18,18 +18,19 @@ class RestApi: NSObject {
     
     func makeRequest(toURL urlString: String,
                      withHttpMethod httpMethod: HttpMethod,
+                     qos: DispatchQoS.QoSClass = .background,
                      completion: @escaping (_ result: Results) -> Void) {
         
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: qos).async {
             
-            guard let url = URL(string: urlString, relativeTo: API.Info.baseURL) else {return}
+            guard let url = URL(string: urlString) else {return}
             let targetURL = self.addURLQueryParameters(toURL: url)
             self.prepareRequestHttpHeaders(httpMethod)
         
             let httpBody = self.getHttpBody()
             guard let request = self.prepareRequest(withURL: targetURL, httpBody: httpBody, httpMethod: httpMethod) else
             {
-                completion(Results(withError: CustomError.failedToCreateRequest))
+                completion(Results(withError: CustomErrorAPI.failedToCreateRequest))
                 return
             }
             let session =  URLSession(configuration: .default, delegate: self, delegateQueue: nil)
@@ -59,9 +60,7 @@ class RestApi: NSObject {
         //By Method POST
         switch httpMethod {
         case .post(let type):
-            self.requestHttpHeaders.add(value: type.rawValue, forKey: "Content-Type")
-        case .get:
-            self.requestHttpHeaders.add(value: TypeHttpPostMethod.json.rawValue, forKey: "Content-Type")
+            self.requestHttpHeaders.add(value: type.rawValue, forKey: "Content-Type")        
         default:
             break
         }
