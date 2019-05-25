@@ -12,7 +12,22 @@ struct SearchPhotosModel {
     
     var requestSearchPhotoModel: RequestSearchPhotoModel?
     var responseSearchPhotoModel: ResponseSearchPhotoModel?
+    var searchPhotoView: SearchPhotosView?
     
+    mutating func prepareView() {
+        var model = SearchPhotosView()
+        
+        if let request = self.requestSearchPhotoModel,
+            let pageInt = Int(request.page) {
+            model.page = pageInt
+        }
+        
+        if let response = self.responseSearchPhotoModel {
+            model.idPhotos = response.photos.photo.map {$0.id}
+        }
+        
+        self.searchPhotoView = model
+    }
     
     func queryParameters() -> RestEntity {
         
@@ -29,6 +44,16 @@ struct SearchPhotosModel {
     }
     
 }
+
+
+// Model for View
+extension SearchPhotosModel {
+    struct SearchPhotosView {
+        var page: Int = 0
+        var idPhotos: [String] = []
+    }
+}
+
 
 // Request Model for GET flickr.photos.search
 extension SearchPhotosModel {

@@ -16,7 +16,7 @@ class SearchPhotoManager: BaseManager {
         self.service = service
     }
     
-    func fetchDatas(page: Int = 1, completing: @escaping (_ success: SearchPhotosModel?, _ error:String?) -> Void) {
+    func fetchDatas(page: Int = 1, completing: @escaping (_ success: SearchPhotosModel.SearchPhotosView?, _ error:String?) -> Void) {
         
         var photoModel = SearchPhotosModel()
         let pageString = String(describing: page)
@@ -27,7 +27,8 @@ class SearchPhotoManager: BaseManager {
                 switch resultCustom {
                 case .success(let responseModel):
                     photoModel.responseSearchPhotoModel = responseModel
-                    completing(photoModel, nil)
+                    photoModel.prepareView()
+                    completing(photoModel.searchPhotoView, nil)
                 case .error(let errorCustom):
                     completing(nil, self?.errorToUser(errorCustom))
                 }
