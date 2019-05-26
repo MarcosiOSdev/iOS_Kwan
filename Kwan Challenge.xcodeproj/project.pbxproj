@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		18099628229A23D2003D3333 /* HomeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18099627229A23D2003D3333 /* HomeTest.swift */; };
 		1809962B229A257E003D3333 /* SearchPhotoServiceStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1809962A229A257E003D3333 /* SearchPhotoServiceStub.swift */; };
+		182252BC229A4B4800009AD6 /* EquatablesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182252BB229A4B4800009AD6 /* EquatablesTest.swift */; };
 		1853A7292298CAF600C99411 /* LoaderImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1853A7282298CAF600C99411 /* LoaderImage.swift */; };
 		1853A72B2298CB6D00C99411 /* MFShimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1853A72A2298CB6D00C99411 /* MFShimmerView.swift */; };
 		1853A72D2298CC2C00C99411 /* SearchPhotosModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1853A72C2298CC2C00C99411 /* SearchPhotosModel.swift */; };
@@ -55,6 +56,7 @@
 /* Begin PBXFileReference section */
 		18099627229A23D2003D3333 /* HomeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTest.swift; sourceTree = "<group>"; };
 		1809962A229A257E003D3333 /* SearchPhotoServiceStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPhotoServiceStub.swift; sourceTree = "<group>"; };
+		182252BB229A4B4800009AD6 /* EquatablesTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquatablesTest.swift; sourceTree = "<group>"; };
 		1853A7282298CAF600C99411 /* LoaderImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderImage.swift; sourceTree = "<group>"; };
 		1853A72A2298CB6D00C99411 /* MFShimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFShimmerView.swift; sourceTree = "<group>"; };
 		1853A72C2298CC2C00C99411 /* SearchPhotosModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPhotosModel.swift; sourceTree = "<group>"; };
@@ -128,6 +130,14 @@
 			path = Stubs;
 			sourceTree = "<group>";
 		};
+		182252BA229A4B3300009AD6 /* EquatableForTest */ = {
+			isa = PBXGroup;
+			children = (
+				182252BB229A4B4800009AD6 /* EquatablesTest.swift */,
+			);
+			path = EquatableForTest;
+			sourceTree = "<group>";
+		};
 		1869E31B22998EFA00084DD6 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
@@ -189,6 +199,7 @@
 		1874703A22976EF400D4C697 /* Kwan ChallengeTests */ = {
 			isa = PBXGroup;
 			children = (
+				182252BA229A4B3300009AD6 /* EquatableForTest */,
 				18099629229A2575003D3333 /* Stubs */,
 				18099626229A23B8003D3333 /* HomeTests */,
 				1874703D22976EF400D4C697 /* Info.plist */,
@@ -429,6 +440,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				182252BC229A4B4800009AD6 /* EquatablesTest.swift in Sources */,
 				18099628229A23D2003D3333 /* HomeTest.swift in Sources */,
 				1809962B229A257E003D3333 /* SearchPhotoServiceStub.swift in Sources */,
 			);

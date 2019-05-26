@@ -10,11 +10,15 @@ import Foundation
 @testable import Kwan_Challenge
 
 class SearchPhotoServiceStub: SearchPhotoServiceRef {
+        
+    var fakeError: CustomErrorService?
     
-    var mockSuccess:Bool
+    private var mockSuccess: Bool {
+        return fakeError == nil
+    }
     
-    init(mockSuccess: Bool) {
-        self.mockSuccess = mockSuccess
+    init(fakeError: CustomErrorService? = nil) {
+        self.fakeError = fakeError
     }
     
     func photoSearch(requestModel: SearchPhotosModel.RequestSearchPhotoModel, completeHandle handler: @escaping SearchPhotoServiceStub.CompleteHandlePhotoSearch) {
@@ -46,7 +50,7 @@ class SearchPhotoServiceStub: SearchPhotoServiceRef {
             
         
         } else {
-            handler(.error(.unexpected))
+            handler(.error(self.fakeError ?? .unexpected))
         }
         
         

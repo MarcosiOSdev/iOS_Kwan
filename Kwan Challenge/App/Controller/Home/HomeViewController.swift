@@ -19,12 +19,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var collectionView: PhotosCollectionView!
     
     var searchPhotoManager = SearchPhotoManager()
-    
-    
-    var photoViews: [PhotoView]?
     var searchView: SearchView?
-    
-    var idPhotos:[Int]?
     
     var handleSate: HandleState = .none {
         didSet {
@@ -93,8 +88,7 @@ extension HomeViewController {
 //MARK: - Others Functions
 extension HomeViewController {
     func settingError(_ errorString: String?) {
-        if let errorMessage = errorString {
-            
+        if let errorMessage = errorString {            
             self.heightConstrintErrorLabel.constant = 50
             UIView.animate(withDuration: 1.5, animations: {
                 self.loadViewIfNeeded()
@@ -124,38 +118,3 @@ extension HomeViewController {
         }
     }
 }
-
-//extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return self.searchView?.photoIds.count ?? 0
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        
-//        let reuseCellItem = ItemCollectionViewCell.reuseCell
-//        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseCellItem, for: indexPath) as? ItemCollectionViewCell else {
-//            return UICollectionViewCell()
-//        }
-//        
-////        if let id = self.searchView?.photoIds[indexPath.item] {
-////            self.photoManager.getPhoto(photoId: id) { (photoView, error) in
-////                if let photoView = photoView {
-////                    cell.photoView = photoView
-////                }
-////            }
-////        }
-//        if let photoViews = self.photoViews {
-//            cell.photoView = photoViews[indexPath.item]
-//        }
-//        return cell
-//    }
-//    
-//    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return self.isPortrate ? self.sizeOfCellInPortrate : self.sizeOfCellInLandscape
-//    }
-//    
-//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-//        self.collectionView.reloadData()
-//    }
-//}

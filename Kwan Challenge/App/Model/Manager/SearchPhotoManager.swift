@@ -17,25 +17,28 @@ class SearchPhotoManager: BaseManager {
         self.service = service
     }
     
+    
+    
     func fetchDatas(page: Int = 1, completing: @escaping (_ success: SearchPhotosModel.SearchPhotosView) -> Void) {
-        
-        
+
         let pageString = String(describing: page)
         photoModel.requestSearchPhotoModel = SearchPhotosModel.RequestSearchPhotoModel(apiKey: API.Info.key, page: pageString)
         
         self.service.photoSearch(requestModel: photoModel.requestSearchPhotoModel!) { [weak self] (resultCustom) in            
-            DispatchQueue.main.async {
-                guard let weakSelf = self else { return }
+            
+            guard let weakSelf = self else { return }
+            
+            switch resultCustom {
+            case .success(let responseModel):
+                weakSelf.photoModel.responseSearchPhotoModel = responseModel
+                weakSelf.photoModel.prepareView(by: responseModel)
                 
-                switch resultCustom {
-                case .success(let responseModel):
-                    weakSelf.photoModel.responseSearchPhotoModel = responseModel
-                    weakSelf.photoModel.prepareView(by: responseModel)
-                    
-                case .error(let errorCustom):
-                    weakSelf.photoModel.prepareView(by: weakSelf.errorToUser(errorCustom))
-                    
-                }
+            case .error(let errorCustom):
+                weakSelf.photoModel.prepareView(by: weakSelf.errorToUser(errorCustom))
+                
+            }
+            
+            performUIUpdate {
                 completing(weakSelf.photoModel.searchPhotoView!)
             }
         }
