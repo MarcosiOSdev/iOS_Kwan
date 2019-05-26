@@ -9,7 +9,7 @@
 import Foundation
 import os.log
 
-protocol SearchPhotoServiceRef {
+protocol SearchPhotoServiceRef: AnyObject {
     typealias CompleteHandlePhotoSearch = (_ responseResult: ResultCustomService<SearchPhotosModel.ResponseSearchPhotoModel, CustomErrorService>) -> Void
     
     func photoSearch(requestModel: SearchPhotosModel.RequestSearchPhotoModel, completeHandle handler: @escaping CompleteHandlePhotoSearch)

@@ -9,7 +9,7 @@
 import Foundation
 import os.log
 
-protocol PhotoServiceRef {
+protocol PhotoServiceRef: AnyObject {
     typealias GetPhotoServiceHandler = (ResultCustomService<PhotoModel.ResponsePhotoModel, CustomErrorService>) -> Void
     
     func get(by model: PhotoModel.RequestPhotoModel, handler: @escaping GetPhotoServiceHandler)

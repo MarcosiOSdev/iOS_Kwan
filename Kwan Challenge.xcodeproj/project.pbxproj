@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		18099628229A23D2003D3333 /* HomeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18099627229A23D2003D3333 /* HomeTest.swift */; };
 		1809962B229A257E003D3333 /* SearchPhotoServiceStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1809962A229A257E003D3333 /* SearchPhotoServiceStub.swift */; };
 		182252BC229A4B4800009AD6 /* EquatablesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182252BB229A4B4800009AD6 /* EquatablesTest.swift */; };
 		1853A7292298CAF600C99411 /* LoaderImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1853A7282298CAF600C99411 /* LoaderImage.swift */; };
@@ -19,6 +18,12 @@
 		1853A7352298D88F00C99411 /* ResultCustomService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1853A7342298D88F00C99411 /* ResultCustomService.swift */; };
 		1853A7372298DAC700C99411 /* BaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1853A7362298DAC700C99411 /* BaseService.swift */; };
 		1853A7392298DCD700C99411 /* BaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1853A7382298DCD700C99411 /* BaseManager.swift */; };
+		1855E34D229B104800503E8F /* HomeViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1855E34C229B104800503E8F /* HomeViewControllerTests.swift */; };
+		1855E34F229B10AF00503E8F /* SearchPhotoManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1855E34E229B10AF00503E8F /* SearchPhotoManagerTests.swift */; };
+		1855E352229B177500503E8F /* PhotosCollectionViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1855E351229B177500503E8F /* PhotosCollectionViewTests.swift */; };
+		1855E354229B178300503E8F /* PhotoManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1855E353229B178300503E8F /* PhotoManagerTests.swift */; };
+		1855E356229B17F700503E8F /* PhotoServiceStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1855E355229B17F700503E8F /* PhotoServiceStub.swift */; };
+		1855E358229B18FF00503E8F /* BaseServiceStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1855E357229B18FF00503E8F /* BaseServiceStub.swift */; };
 		1869E3162298F6A600084DD6 /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1869E3152298F6A600084DD6 /* PhotoModel.swift */; };
 		1869E3182298F83900084DD6 /* PhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1869E3172298F83900084DD6 /* PhotoManager.swift */; };
 		1869E31A2298F93E00084DD6 /* PhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1869E3192298F93E00084DD6 /* PhotoService.swift */; };
@@ -54,7 +59,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		18099627229A23D2003D3333 /* HomeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTest.swift; sourceTree = "<group>"; };
 		1809962A229A257E003D3333 /* SearchPhotoServiceStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPhotoServiceStub.swift; sourceTree = "<group>"; };
 		182252BB229A4B4800009AD6 /* EquatablesTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquatablesTest.swift; sourceTree = "<group>"; };
 		1853A7282298CAF600C99411 /* LoaderImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderImage.swift; sourceTree = "<group>"; };
@@ -66,6 +70,12 @@
 		1853A7342298D88F00C99411 /* ResultCustomService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCustomService.swift; sourceTree = "<group>"; };
 		1853A7362298DAC700C99411 /* BaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseService.swift; sourceTree = "<group>"; };
 		1853A7382298DCD700C99411 /* BaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseManager.swift; sourceTree = "<group>"; };
+		1855E34C229B104800503E8F /* HomeViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewControllerTests.swift; sourceTree = "<group>"; };
+		1855E34E229B10AF00503E8F /* SearchPhotoManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPhotoManagerTests.swift; sourceTree = "<group>"; };
+		1855E351229B177500503E8F /* PhotosCollectionViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewTests.swift; sourceTree = "<group>"; };
+		1855E353229B178300503E8F /* PhotoManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoManagerTests.swift; sourceTree = "<group>"; };
+		1855E355229B17F700503E8F /* PhotoServiceStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoServiceStub.swift; sourceTree = "<group>"; };
+		1855E357229B18FF00503E8F /* BaseServiceStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseServiceStub.swift; sourceTree = "<group>"; };
 		1869E3152298F6A600084DD6 /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
 		1869E3172298F83900084DD6 /* PhotoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoManager.swift; sourceTree = "<group>"; };
 		1869E3192298F93E00084DD6 /* PhotoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoService.swift; sourceTree = "<group>"; };
@@ -114,18 +124,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		18099626229A23B8003D3333 /* HomeTests */ = {
+		18099626229A23B8003D3333 /* HomeAndSearchPhotoTests */ = {
 			isa = PBXGroup;
 			children = (
-				18099627229A23D2003D3333 /* HomeTest.swift */,
+				1855E34C229B104800503E8F /* HomeViewControllerTests.swift */,
+				1855E34E229B10AF00503E8F /* SearchPhotoManagerTests.swift */,
 			);
-			path = HomeTests;
+			path = HomeAndSearchPhotoTests;
 			sourceTree = "<group>";
 		};
 		18099629229A2575003D3333 /* Stubs */ = {
 			isa = PBXGroup;
 			children = (
 				1809962A229A257E003D3333 /* SearchPhotoServiceStub.swift */,
+				1855E355229B17F700503E8F /* PhotoServiceStub.swift */,
+				1855E357229B18FF00503E8F /* BaseServiceStub.swift */,
 			);
 			path = Stubs;
 			sourceTree = "<group>";
@@ -136,6 +149,15 @@
 				182252BB229A4B4800009AD6 /* EquatablesTest.swift */,
 			);
 			path = EquatableForTest;
+			sourceTree = "<group>";
+		};
+		1855E350229B174F00503E8F /* PhotosTests */ = {
+			isa = PBXGroup;
+			children = (
+				1855E351229B177500503E8F /* PhotosCollectionViewTests.swift */,
+				1855E353229B178300503E8F /* PhotoManagerTests.swift */,
+			);
+			path = PhotosTests;
 			sourceTree = "<group>";
 		};
 		1869E31B22998EFA00084DD6 /* Entity */ = {
@@ -199,9 +221,10 @@
 		1874703A22976EF400D4C697 /* Kwan ChallengeTests */ = {
 			isa = PBXGroup;
 			children = (
+				1855E350229B174F00503E8F /* PhotosTests */,
 				182252BA229A4B3300009AD6 /* EquatableForTest */,
 				18099629229A2575003D3333 /* Stubs */,
-				18099626229A23B8003D3333 /* HomeTests */,
+				18099626229A23B8003D3333 /* HomeAndSearchPhotoTests */,
 				1874703D22976EF400D4C697 /* Info.plist */,
 			);
 			path = "Kwan ChallengeTests";
@@ -440,9 +463,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1855E354229B178300503E8F /* PhotoManagerTests.swift in Sources */,
 				182252BC229A4B4800009AD6 /* EquatablesTest.swift in Sources */,
-				18099628229A23D2003D3333 /* HomeTest.swift in Sources */,
+				1855E358229B18FF00503E8F /* BaseServiceStub.swift in Sources */,
+				1855E34F229B10AF00503E8F /* SearchPhotoManagerTests.swift in Sources */,
+				1855E356229B17F700503E8F /* PhotoServiceStub.swift in Sources */,
 				1809962B229A257E003D3333 /* SearchPhotoServiceStub.swift in Sources */,
+				1855E34D229B104800503E8F /* HomeViewControllerTests.swift in Sources */,
+				1855E352229B177500503E8F /* PhotosCollectionViewTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

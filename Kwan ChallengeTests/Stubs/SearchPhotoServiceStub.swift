@@ -9,17 +9,12 @@
 import Foundation
 @testable import Kwan_Challenge
 
-class SearchPhotoServiceStub: SearchPhotoServiceRef {
-        
-    var fakeError: CustomErrorService?
+class SearchPhotoServiceStub: BaseServiceStub, SearchPhotoServiceRef {
     
-    private var mockSuccess: Bool {
-        return fakeError == nil
+    override init(fakeError: CustomErrorService? = nil) {
+        super.init(fakeError: fakeError)
     }
-    
-    init(fakeError: CustomErrorService? = nil) {
-        self.fakeError = fakeError
-    }
+   
     
     func photoSearch(requestModel: SearchPhotosModel.RequestSearchPhotoModel, completeHandle handler: @escaping SearchPhotoServiceStub.CompleteHandlePhotoSearch) {
         
@@ -42,7 +37,7 @@ class SearchPhotoServiceStub: SearchPhotoServiceRef {
             
             }
             if requestModel.page == "2" {
-                let photos = [SearchPhotosModel.Photo(id: "1")]
+                let photos = [SearchPhotosModel.Photo(id: "9")]
                 let photo = SearchPhotosModel.Photos(page: 1, pages: 1000, photo: photos)
                 let response = SearchPhotosModel.ResponseSearchPhotoModel(photos: photo, stat: "")
                 handler(.success(response))
