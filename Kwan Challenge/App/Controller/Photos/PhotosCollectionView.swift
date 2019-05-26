@@ -20,6 +20,8 @@ class PhotosCollectionView: UICollectionView {
         }
     }
     
+    var listModelCache: [IndexPath: PhotoModel.PhotoView] = [IndexPath: PhotoModel.PhotoView]()
+    
     private var statePresentation: HandleState = .none {
         didSet {
             self.performHandleState()
@@ -100,19 +102,49 @@ extension PhotosCollectionView: UICollectionViewDataSource, UICollectionViewDele
             return UICollectionViewCell()
         }
         
-        if let id = self.photoIds?[indexPath.item] {
-            self.photoManager.getPhoto(photoId: id) { (photoView) in
-                DispatchQueue.main.async {
-                    cell.photoView = photoView
+        if listModelCache.keys.contains(indexPath)  {
+            let photoView = listModelCache[indexPath]
+            cell.photoView = photoView
+            
+        } else {
+            if let id = self.photoIds?[indexPath.item] {
+                self.photoManager.getPhoto(photoId: id) { (photoView) in
+                    DispatchQueue.main.async {
+                        cell.photoView = photoView
+                        self.listModelCache[indexPath] = photoView
+                    }
                 }
             }
         }
+        
+        
         return cell
     }
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return self.isPortrate ? self.sizeOfCellInPortrate : self.sizeOfCellInLandscape
+    }
+    
+    private func shadownInCell (cell: ItemCollectionViewCell) {
+        
+        cell.layer.masksToBounds = true
+        cell.layer.cornerRadius = 20
+        
+        cell.contentView.layer.cornerRadius = 10
+        cell.contentView.layer.borderWidth = 1.0
+        
+        cell.contentView.layer.borderColor = UIColor.clear.cgColor
+        cell.contentView.layer.masksToBounds = true
+        
+        cell.layer.shadowColor = UIColor.gray.cgColor
+        cell.layer.shadowOffset = CGSize(width: 0, height: 2.0)
+        cell.layer.shadowRadius = 2.0
+        cell.layer.shadowOpacity = 1.0
+        cell.layer.masksToBounds = false
+        cell.layer.shadowPath =
+            UIBezierPath(roundedRect: cell.bounds,
+                         cornerRadius:cell.contentView.layer.cornerRadius).cgPath
     }
     
 }

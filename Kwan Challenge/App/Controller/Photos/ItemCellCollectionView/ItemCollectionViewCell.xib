@@ -21,6 +21,11 @@
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vBu-ki-owo" customClass="LoaderImageView" customModule="Kwan_Challenge" customModuleProvider="target">
                         <rect key="frame" x="8" y="8" width="132" height="136"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="shimmerAnimation" value="YES"/>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="isMFShimmering" value="YES"/>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="isShimmering" value="YES"/>
+                        </userDefinedRuntimeAttributes>
                     </imageView>
                 </subviews>
             </view>

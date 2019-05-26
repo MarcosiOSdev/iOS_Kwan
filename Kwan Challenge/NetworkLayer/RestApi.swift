@@ -16,6 +16,16 @@ class RestApi: NSObject {
     
     var httpBody: Data?
     
+    
+    var sessionConfiguration: URLSessionConfiguration = {
+        let configuration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForResource = 30
+        if #available(iOS 11.0, *) {
+            configuration.waitsForConnectivity = false
+        }
+        return configuration
+    }()
+    
     func makeRequest(toURL urlString: String,
                      withHttpMethod httpMethod: HttpMethod,
                      qos: DispatchQoS.QoSClass = .default,
@@ -33,21 +43,28 @@ class RestApi: NSObject {
                 completion(Results(withError: CustomErrorAPI.failedToCreateRequest))
                 return
             }
-            let session =  URLSession(configuration: .default, delegate: self, delegateQueue: nil)
-            let task = session.dataTask(with: request) { (data, response, error) in
+            let session =  URLSession(configuration: self.sessionConfiguration, delegate: self, delegateQueue: nil)
+            
+            session.dataTask(with: request) { (data, response, error) in
+                
+                if let error = error, error.isConnectivityError {
+                    completion(Results(withError: CustomErrorAPI.timeOut))
+                    return
+                }
+                
+                
                 completion(Results(withData: data,
                                    response: Response(fromURLResponse: response),
                                    error: error))
-            }
-            task.resume()
+            }.resume()
         }
         
     }
     
     func getData(fromURL url: URL, completion: @escaping (_ data: Data?) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
-            let sessionConfiguration = URLSessionConfiguration.default
-            let session = URLSession(configuration: sessionConfiguration)
+            
+            let session = URLSession(configuration: self.sessionConfiguration)
             let task = session.dataTask(with: url, completionHandler: { (data, response, error) in
                 guard let data = data else { completion(nil); return }
                 completion(data)
@@ -143,4 +160,28 @@ extension RestApi: URLSessionDelegate {
             completionHandler(URLSession.AuthChallengeDisposition.useCredential, proposedCredential)
         }
     }
+}
+
+extension Error {
+    
+    var isConnectivityError: Bool {
+        // let code = self._code || Can safely bridged to NSError, avoid using _ members
+        let code = (self as NSError).code
+        
+        if (code == NSURLErrorTimedOut) {
+            return true // time-out
+        }
+        
+        if (self._domain != NSURLErrorDomain) {
+            return false // Cannot be a NSURLConnection error
+        }
+        
+        switch (code) {
+        case NSURLErrorNotConnectedToInternet, NSURLErrorNetworkConnectionLost, NSURLErrorCannotConnectToHost:
+            return true
+        default:
+            return false
+        }
+    }
+    
 }

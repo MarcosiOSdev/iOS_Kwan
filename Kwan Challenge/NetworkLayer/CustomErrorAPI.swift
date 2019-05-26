@@ -10,11 +10,15 @@ import Foundation
 
 enum CustomErrorAPI: Error {
     case failedToCreateRequest
+    case timeOut
 }
 extension CustomErrorAPI: LocalizedError {
     public var localizedDescription: String {
         switch self {
-        case .failedToCreateRequest: return NSLocalizedString("Unable to create the URLRequest object", comment: "")
+        case .failedToCreateRequest:
+            return NSLocalizedString("Unable to create the URLRequest object", comment: "")
+        case .timeOut:
+            return NSLocalizedString("Unable to internet", comment: "")
         }
     }
 }

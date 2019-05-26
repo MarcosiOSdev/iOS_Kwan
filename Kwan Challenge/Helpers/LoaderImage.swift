@@ -13,6 +13,17 @@ class LoaderImageView: UIImageView {
     
     var imageExist: String?
     
+    var newImage: UIImage? {
+        didSet {
+            guard let image = self.newImage else { return }
+            UIView.transition(with: self,
+                              duration:0.5,
+                              options: .transitionCrossDissolve,
+                              animations: { self.image = image },
+                              completion: nil)
+        }
+    }
+    
     /**
      if imagecache doesn't have the image then make the download and save the image in imagecache, if else one has image then show
      
@@ -20,14 +31,17 @@ class LoaderImageView: UIImageView {
      - by: It is the Id of Photo
      - withSource: It is the source
     */
-    func loadImage(by id: String, withSource urlString:String) {
+    func loadImage(by id: String, withSource urlString:String, completion: ((Bool) -> Void)? = nil) {
         
         //There is the image in Disk
         let valueImage = "\(id)-\(urlString)"
         imageExist = valueImage
-        self.image = nil
+        self.newImage = nil
         if let imageForCache = imageCache.object(forKey: urlString as AnyObject) as? UIImage {
             self.image = imageForCache
+            if let completion = completion {
+                completion(true)
+            }
             return
         }
         
@@ -38,9 +52,12 @@ class LoaderImageView: UIImageView {
                     DispatchQueue.main.async {
                         let imageForCache = UIImage(data: data!)
                         if self.imageExist == valueImage {
-                            self.image = imageForCache
+                            self.newImage = imageForCache
                         }
                         imageCache.setObject(imageForCache!, forKey: valueImage as AnyObject)
+                        if let completion = completion {
+                            completion(true)
+                        }
                     }
                 }
             }.resume()

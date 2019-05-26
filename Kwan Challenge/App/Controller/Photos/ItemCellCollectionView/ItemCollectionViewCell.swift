@@ -23,7 +23,13 @@ class ItemCollectionViewCell: UICollectionViewCell {
             guard let photoView = self.photoView,
             let id = photoView.id,
             let source = photoView.sourceSquare else { return }
-            self.imageView.loadImage(by: id, withSource: source)
+            self.imageView.loadImage(by: id, withSource: source) { completed in
+                if completed {
+                    if let _  = self.imageView.image {
+                        self.imageView.isShimmering = false
+                    }                    
+                }
+            }
         }
     }
     
@@ -31,21 +37,4 @@ class ItemCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
     }
     
-    override func draw(_ rect: CGRect) {
-        self.contentView.layer.cornerRadius = 10
-        self.contentView.layer.borderWidth = 1.0
-        
-        self.contentView.layer.borderColor = UIColor.clear.cgColor
-        self.contentView.layer.masksToBounds = true
-        
-        self.layer.shadowColor = UIColor.gray.cgColor
-        self.layer.shadowOffset = CGSize(width: 0, height: 2.0)
-        self.layer.shadowRadius = 2.0
-        self.layer.shadowOpacity = 1.0
-        self.layer.masksToBounds = false
-        self.layer.shadowPath = UIBezierPath(roundedRect:self.bounds, cornerRadius:self.contentView.layer.cornerRadius).cgPath
-        
-        self.layoutSubviews()
-    }
-
 }

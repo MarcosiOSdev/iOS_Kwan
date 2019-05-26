@@ -17,6 +17,8 @@ class BaseService {
             switch errorAPI {
             case .failedToCreateRequest:
                 return .invalidRequest
+            case .timeOut:
+                return .conectionApi
             }
         }
         return .unexpected
