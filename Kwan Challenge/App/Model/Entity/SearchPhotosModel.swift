@@ -26,6 +26,12 @@ struct SearchPhotosModel {
         self.searchPhotoView = model
     }
     
+    mutating func prepareView(by error: String) {
+        var model = SearchPhotosView()
+        model.errorMessage = error
+        self.searchPhotoView = model
+    }
+    
 }
 
 
@@ -34,6 +40,7 @@ extension SearchPhotosModel {
     struct SearchPhotosView {
         var page: Int = 0
         var photoIds: [String] = []
+        var errorMessage: String?
     }
 }
 
@@ -77,21 +84,31 @@ extension SearchPhotosModel {
             }
             self = model
         }
+        
+        init(photos: Photos, stat:String) {
+            self.photos = photos
+            self.stat = stat
+        }
     }
     
     // MARK: - Photos
     struct Photos: Codable {
-        let page, pages, perpage: Int
-        let total: String
+        let page, pages: Int
         let photo: [Photo]
+        
+        init(page: Int, pages:Int, photo: [Photo]) {
+            self.page = page
+            self.pages = pages
+            self.photo = photo
+        }
     }
     
     // MARK: - Photo
     struct Photo: Codable {
-        let id, owner, secret, server: String
-        let farm: Int
-        let title: String
-        let ispublic, isfriend, isfamily: Int
+        let id: String
+        init(id: String) {
+            self.id = id
+        }
     }
 
 }

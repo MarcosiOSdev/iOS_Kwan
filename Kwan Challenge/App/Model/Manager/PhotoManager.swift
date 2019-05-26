@@ -17,19 +17,24 @@ class PhotoManager: BaseManager {
         self.photoService = photoService
     }
     
-    func getPhoto(photoId: String, completeHandle handler: @escaping (_ model: PhotoModel.PhotoView?, _ error: String? )-> Void) {
+    func getPhoto(photoId: String, completeHandle handler: @escaping (_ model: PhotoModel.PhotoView)-> Void) {
         
         model.requestPhotoModel = PhotoModel.RequestPhotoModel(apiKey: API.Info.key, photoId: photoId)
         
         self.photoService.get(by: model.requestPhotoModel! ) { [weak self](resultCustom) in
-            switch resultCustom {
-            case .success(let success):
-                self?.model.responsePhotoModel = success
-                self?.model.performView(by: success)
-                handler(self?.model.photoView, nil)
-            case .error(let error):
-                handler(nil, self?.errorToUser(error))
-                
+            
+            DispatchQueue.main.async {
+                guard let weakSelf = self else {
+                    return
+                }
+                switch resultCustom {
+                case .success(let success):
+                    weakSelf.model.responsePhotoModel = success
+                    weakSelf.model.performView(by: success)                    
+                case .error(let error):
+                    weakSelf.model.performView(by: weakSelf.errorToUser(error))
+                }
+                handler( weakSelf.model.photoView!)
             }
         }
     }

@@ -18,8 +18,8 @@ class HomeViewController: UIViewController {
     
     @IBOutlet weak var collectionView: PhotosCollectionView!
     
-    private var searchPhotoManager = SearchPhotoManager()
-    private var photoManager = PhotoManager()
+    var searchPhotoManager = SearchPhotoManager()
+    
     
     var photoViews: [PhotoView]?
     var searchView: SearchView?
@@ -31,33 +31,7 @@ class HomeViewController: UIViewController {
             performHandleState()
         }
     }
-    
-    
-    //MARK: Vars for CollectionView
-    var portraitScreenSize: CGSize?
-    var landscapeScreenSize: CGSize?
-    var isPortrate:Bool {
-        return UIApplication.shared.statusBarOrientation.isPortrait
-    }
-    
-    var sizeOfCellInPortrate: CGSize {
-        let viewWidth = portraitScreenSize?.width ?? self.view.bounds.width
-        let bordes = CGFloat(16) //8 leading + 8 trailling
-        let bordesBetwenCell = CGFloat(16) //8 leading + 8 trailling
-        let width = (viewWidth - bordes - bordesBetwenCell) / CGFloat(2)  // 2 = numbers in vertical.
-        return CGSize(width: width, height: width) //Square
-    }
-    
-    var sizeOfCellInLandscape: CGSize {
-        let viewWidth = landscapeScreenSize?.width ?? self.view.bounds.width
-        let viewHeight = landscapeScreenSize?.height ?? self.view.bounds.height
-        
-        let bordes = CGFloat(104) //8 leading + 8 trailling + 88 SafeArea (left and rigth)
-        let bordesBetwenCell = CGFloat(16) //8 leading + 8 trailling
-        let width = (viewWidth - bordes - bordesBetwenCell) / CGFloat(2)  // 2 = numbers in vertical.
-        let height = (viewHeight - bordesBetwenCell)
-        return CGSize(width: width, height: height) //Square
-    }
+
 }
 
 //MARK: - LifeCycle ViewController
@@ -71,7 +45,7 @@ extension HomeViewController {
 
 //MARK: - Handle State from HomeViewController are Presentation Logic
 extension HomeViewController {
-    enum HandleState {
+    enum HandleState {        
         case searchPhoto
         case successFetchSearchPhoto(SearchView)
         case performCollectionView
@@ -106,13 +80,12 @@ extension HomeViewController {
 extension HomeViewController {
     
     func fetchSearchPhoto() {
-        self.searchPhotoManager.fetchDatas { [weak self] (success, error) in
-            if let error = error {
+        self.searchPhotoManager.fetchDatas { [weak self] (modelView) in
+            if let error = modelView.errorMessage {
                 self?.handleSate = .error(error)
-            }
-            if let success = success {
-                self?.handleSate = .successFetchSearchPhoto(success)
-            }
+            } else {
+                self?.handleSate = .successFetchSearchPhoto(modelView)
+            }            
         }
     }
 }

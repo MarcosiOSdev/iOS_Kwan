@@ -34,7 +34,14 @@ struct PhotoModel {
         
         self.photoView = PhotoView(id: requestPhotoModel?.photoId ?? "",
                                    sourceLarge: sourceLarge,
-                                   sourceSquare: sourceSquare)
+                                   sourceSquare: sourceSquare,
+                                   msgError: "")
+    }
+    mutating func performView(by error: String) {
+        self.photoView = PhotoView(id: "",
+                                   sourceLarge: "",
+                                   sourceSquare: "",
+                                   msgError: error)
     }
 }
 
@@ -48,6 +55,7 @@ extension PhotoModel {
         var id:String?
         var sourceLarge: String?
         var sourceSquare: String?
+        var msgError: String?
     }
 }
 

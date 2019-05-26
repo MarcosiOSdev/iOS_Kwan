@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18099628229A23D2003D3333 /* HomeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18099627229A23D2003D3333 /* HomeTest.swift */; };
+		1809962B229A257E003D3333 /* SearchPhotoServiceStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1809962A229A257E003D3333 /* SearchPhotoServiceStub.swift */; };
 		1853A7292298CAF600C99411 /* LoaderImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1853A7282298CAF600C99411 /* LoaderImage.swift */; };
 		1853A72B2298CB6D00C99411 /* MFShimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1853A72A2298CB6D00C99411 /* MFShimmerView.swift */; };
 		1853A72D2298CC2C00C99411 /* SearchPhotosModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1853A72C2298CC2C00C99411 /* SearchPhotosModel.swift */; };
@@ -25,7 +27,6 @@
 		1874702722976EF100D4C697 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1874702622976EF100D4C697 /* AppDelegate.swift */; };
 		1874702E22976EF300D4C697 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1874702D22976EF300D4C697 /* Assets.xcassets */; };
 		1874703122976EF300D4C697 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1874702F22976EF300D4C697 /* LaunchScreen.storyboard */; };
-		1874703C22976EF400D4C697 /* Kwan_ChallengeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1874703B22976EF400D4C697 /* Kwan_ChallengeTests.swift */; };
 		1874704D2297730000D4C697 /* RestEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18747047229772FF00D4C697 /* RestEntity.swift */; };
 		1874704E2297730000D4C697 /* RestApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18747048229772FF00D4C697 /* RestApi.swift */; };
 		1874704F2297730000D4C697 /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18747049229772FF00D4C697 /* HttpMethod.swift */; };
@@ -52,6 +53,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		18099627229A23D2003D3333 /* HomeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTest.swift; sourceTree = "<group>"; };
+		1809962A229A257E003D3333 /* SearchPhotoServiceStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPhotoServiceStub.swift; sourceTree = "<group>"; };
 		1853A7282298CAF600C99411 /* LoaderImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderImage.swift; sourceTree = "<group>"; };
 		1853A72A2298CB6D00C99411 /* MFShimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFShimmerView.swift; sourceTree = "<group>"; };
 		1853A72C2298CC2C00C99411 /* SearchPhotosModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPhotosModel.swift; sourceTree = "<group>"; };
@@ -73,7 +76,6 @@
 		1874703022976EF300D4C697 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1874703222976EF300D4C697 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1874703722976EF400D4C697 /* Kwan ChallengeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Kwan ChallengeTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		1874703B22976EF400D4C697 /* Kwan_ChallengeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kwan_ChallengeTests.swift; sourceTree = "<group>"; };
 		1874703D22976EF400D4C697 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18747047229772FF00D4C697 /* RestEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestEntity.swift; sourceTree = "<group>"; };
 		18747048229772FF00D4C697 /* RestApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestApi.swift; sourceTree = "<group>"; };
@@ -110,6 +112,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		18099626229A23B8003D3333 /* HomeTests */ = {
+			isa = PBXGroup;
+			children = (
+				18099627229A23D2003D3333 /* HomeTest.swift */,
+			);
+			path = HomeTests;
+			sourceTree = "<group>";
+		};
+		18099629229A2575003D3333 /* Stubs */ = {
+			isa = PBXGroup;
+			children = (
+				1809962A229A257E003D3333 /* SearchPhotoServiceStub.swift */,
+			);
+			path = Stubs;
+			sourceTree = "<group>";
+		};
 		1869E31B22998EFA00084DD6 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
@@ -171,7 +189,8 @@
 		1874703A22976EF400D4C697 /* Kwan ChallengeTests */ = {
 			isa = PBXGroup;
 			children = (
-				1874703B22976EF400D4C697 /* Kwan_ChallengeTests.swift */,
+				18099629229A2575003D3333 /* Stubs */,
+				18099626229A23B8003D3333 /* HomeTests */,
 				1874703D22976EF400D4C697 /* Info.plist */,
 			);
 			path = "Kwan ChallengeTests";
@@ -410,7 +429,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1874703C22976EF400D4C697 /* Kwan_ChallengeTests.swift in Sources */,
+				18099628229A23D2003D3333 /* HomeTest.swift in Sources */,
+				1809962B229A257E003D3333 /* SearchPhotoServiceStub.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

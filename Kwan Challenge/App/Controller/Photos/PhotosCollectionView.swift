@@ -101,11 +101,9 @@ extension PhotosCollectionView: UICollectionViewDataSource, UICollectionViewDele
         }
         
         if let id = self.photoIds?[indexPath.item] {
-            self.photoManager.getPhoto(photoId: id) { (photoView, error) in
-                if let photoView = photoView {
-                    DispatchQueue.main.async {
-                        cell.photoView = photoView
-                    }
+            self.photoManager.getPhoto(photoId: id) { (photoView) in
+                DispatchQueue.main.async {
+                    cell.photoView = photoView
                 }
             }
         }
