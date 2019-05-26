@@ -12,24 +12,21 @@ import os.log
 protocol SearchPhotoServiceRef {
     typealias CompleteHandlePhotoSearch = (_ responseResult: ResultCustomService<SearchPhotosModel.ResponseSearchPhotoModel, CustomErrorService>) -> Void
     
-    func photoSearch(photoModel: SearchPhotosModel, completeHandle: @escaping CompleteHandlePhotoSearch)
+    func photoSearch(requestModel: SearchPhotosModel.RequestSearchPhotoModel, completeHandle: @escaping CompleteHandlePhotoSearch)
 }
 
 class SearchPhotoService: BaseService, SearchPhotoServiceRef {
     
-    func photoSearch(photoModel: SearchPhotosModel, completeHandle: @escaping SearchPhotoService.CompleteHandlePhotoSearch) {
+    func photoSearch(requestModel: SearchPhotosModel.RequestSearchPhotoModel, completeHandle: @escaping SearchPhotoService.CompleteHandlePhotoSearch) {
         
         let restApi = RestApi()
-        restApi.urlQueryParameters = photoModel.queryParameters()
-        let url = API.Info.baseURL.replacingOccurrences(of: "\\", with: "")
-        restApi.makeRequest(toURL: url, withHttpMethod: .get) { results in
+        restApi.urlQueryParameters = requestModel.queryParameters()
+        
+        restApi.makeRequest(toURL: url,
+                            withHttpMethod: .get,
+                            qos: .userInitiated) { results in
             
-            if let data = results.data {
-                if #available(iOS 12.0, *) {
-                    os_log(.default, log: .default, "Simple log with some %@.", String(data: data, encoding: .utf8) ?? "")
-                } else {
-                    
-                }
+            if let data = results.data {               
                 guard let responseModel = SearchPhotosModel.ResponseSearchPhotoModel(with: data) else {
                     completeHandle(.error(.formatterJson))
                     return

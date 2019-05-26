@@ -14,6 +14,28 @@ struct PhotoModel {
     var responsePhotoModel: ResponsePhotoModel?
     var requestPhotoModel: RequestPhotoModel?
     
+    mutating func setRequestModel(by photoId: Int) {
+        let photoIdString = String(photoId)
+        
+        if requestPhotoModel == nil {
+            self.requestPhotoModel = RequestPhotoModel(apiKey: "", photoId: photoIdString)
+        } else {
+            requestPhotoModel?.photoId = photoIdString
+        }
+    }
+    
+    mutating func performView(by responseModel: ResponsePhotoModel) {
+        
+        let largeSquareSize = responseModel.sizes.size.filter { $0.label == "Large Square" }.first
+        let largeSize = responseModel.sizes.size.filter { $0.label == "Large"}.first
+        
+        let sourceLarge = largeSize?.source ?? ""
+        let sourceSquare = largeSquareSize?.source ?? ""
+        
+        self.photoView = PhotoView(id: requestPhotoModel?.photoId ?? "",
+                                   sourceLarge: sourceLarge,
+                                   sourceSquare: sourceSquare)
+    }
 }
 
 
@@ -23,6 +45,7 @@ struct PhotoModel {
 //MARK: Just show in the view.
 extension PhotoModel {
     struct PhotoView {
+        var id:String?
         var sourceLarge: String?
         var sourceSquare: String?
     }
@@ -32,12 +55,22 @@ extension PhotoModel {
 extension PhotoModel {
     struct RequestPhotoModel {
         let apiKey: String
-        let photoId: String
+        var photoId: String
         
         //default values
         let format: String = "json"
         let nojsoncallback: String = "1"
         let method: MethodEnumModel = .getSizes
+        
+        func queryParameters() -> RestEntity {
+            var query = RestEntity()
+            query.add(value: method.rawValue, forKey: "method")
+            query.add(value: apiKey, forKey: "api_key")
+            query.add(value: photoId, forKey: "photo_id")
+            query.add(value: format, forKey: "format")
+            query.add(value: nojsoncallback, forKey: "nojsoncallback")
+            return query
+        }
     }
 }
 

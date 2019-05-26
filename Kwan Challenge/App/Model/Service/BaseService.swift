@@ -10,6 +10,8 @@ import Foundation
 
 class BaseService {
     
+    let url = API.Info.baseURL.replacingOccurrences(of: "\\", with: "")
+    
     func verifyError(_ error: Error) -> CustomErrorService {
         if let errorAPI = error as? CustomErrorAPI {
             switch errorAPI {

@@ -16,10 +16,12 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var heightConstrintErrorLabel: NSLayoutConstraint!
     
+    @IBOutlet weak var collectionView: PhotosCollectionView!
+    
     private var searchPhotoManager = SearchPhotoManager()
     private var photoManager = PhotoManager()
     
-    var photoView: PhotoView?
+    var photoViews: [PhotoView]?
     var searchView: SearchView?
     
     var idPhotos:[Int]?
@@ -29,10 +31,38 @@ class HomeViewController: UIViewController {
             performHandleState()
         }
     }
+    
+    
+    //MARK: Vars for CollectionView
+    var portraitScreenSize: CGSize?
+    var landscapeScreenSize: CGSize?
+    var isPortrate:Bool {
+        return UIApplication.shared.statusBarOrientation.isPortrait
+    }
+    
+    var sizeOfCellInPortrate: CGSize {
+        let viewWidth = portraitScreenSize?.width ?? self.view.bounds.width
+        let bordes = CGFloat(16) //8 leading + 8 trailling
+        let bordesBetwenCell = CGFloat(16) //8 leading + 8 trailling
+        let width = (viewWidth - bordes - bordesBetwenCell) / CGFloat(2)  // 2 = numbers in vertical.
+        return CGSize(width: width, height: width) //Square
+    }
+    
+    var sizeOfCellInLandscape: CGSize {
+        let viewWidth = landscapeScreenSize?.width ?? self.view.bounds.width
+        let viewHeight = landscapeScreenSize?.height ?? self.view.bounds.height
+        
+        let bordes = CGFloat(104) //8 leading + 8 trailling + 88 SafeArea (left and rigth)
+        let bordesBetwenCell = CGFloat(16) //8 leading + 8 trailling
+        let width = (viewWidth - bordes - bordesBetwenCell) / CGFloat(2)  // 2 = numbers in vertical.
+        let height = (viewHeight - bordesBetwenCell)
+        return CGSize(width: width, height: height) //Square
+    }
 }
 
 //MARK: - LifeCycle ViewController
 extension HomeViewController {
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.handleSate = .searchPhoto
@@ -43,9 +73,8 @@ extension HomeViewController {
 extension HomeViewController {
     enum HandleState {
         case searchPhoto
-        case getIdsPhoto
         case successFetchSearchPhoto(SearchView)
-        case successIdPhotos(PhotoView)
+        case performCollectionView
         case error(String)
         case none
     }
@@ -56,15 +85,12 @@ extension HomeViewController {
             settingError(nil)
             fetchSearchPhoto()
             
-        case .getIdsPhoto:
-            settingError(nil)
-            fetchIdPhotos()
-            
         case .successFetchSearchPhoto(let searchView):
             self.searchView = searchView
+            self.handleSate = .performCollectionView
             
-        case .successIdPhotos(let photoView):
-            self.photoView = photoView
+        case .performCollectionView:
+            self.photosDataSourceReload()
             
         case .error(let errorString):
             settingError(errorString)
@@ -88,10 +114,6 @@ extension HomeViewController {
                 self?.handleSate = .successFetchSearchPhoto(success)
             }
         }
-    }
-    
-    func fetchIdPhotos() {
-        
     }
 }
 
@@ -120,4 +142,47 @@ extension HomeViewController {
             errorLabel.isHidden = true
         }
     }
+    
+    func photosDataSourceReload() {
+        if let searchView = self.searchView {
+            self.collectionView.photoIds = searchView.photoIds
+        } else {
+            self.handleSate = .error("Dont have photo.")
+        }
+    }
 }
+
+//extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return self.searchView?.photoIds.count ?? 0
+//    }
+//    
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        
+//        let reuseCellItem = ItemCollectionViewCell.reuseCell
+//        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseCellItem, for: indexPath) as? ItemCollectionViewCell else {
+//            return UICollectionViewCell()
+//        }
+//        
+////        if let id = self.searchView?.photoIds[indexPath.item] {
+////            self.photoManager.getPhoto(photoId: id) { (photoView, error) in
+////                if let photoView = photoView {
+////                    cell.photoView = photoView
+////                }
+////            }
+////        }
+//        if let photoViews = self.photoViews {
+//            cell.photoView = photoViews[indexPath.item]
+//        }
+//        return cell
+//    }
+//    
+//    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        return self.isPortrate ? self.sizeOfCellInPortrate : self.sizeOfCellInLandscape
+//    }
+//    
+//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+//        self.collectionView.reloadData()
+//    }
+//}

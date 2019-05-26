@@ -18,7 +18,7 @@ class RestApi: NSObject {
     
     func makeRequest(toURL urlString: String,
                      withHttpMethod httpMethod: HttpMethod,
-                     qos: DispatchQoS.QoSClass = .background,
+                     qos: DispatchQoS.QoSClass = .default,
                      completion: @escaping (_ result: Results) -> Void) {
         
         DispatchQueue.global(qos: qos).async {
@@ -26,7 +26,7 @@ class RestApi: NSObject {
             guard let url = URL(string: urlString) else {return}
             let targetURL = self.addURLQueryParameters(toURL: url)
             self.prepareRequestHttpHeaders(httpMethod)
-        
+            
             let httpBody = self.getHttpBody()
             guard let request = self.prepareRequest(withURL: targetURL, httpBody: httpBody, httpMethod: httpMethod) else
             {
@@ -39,8 +39,9 @@ class RestApi: NSObject {
                                    response: Response(fromURLResponse: response),
                                    error: error))
             }
-            task.resume()            
+            task.resume()
         }
+        
     }
     
     func getData(fromURL url: URL, completion: @escaping (_ data: Data?) -> Void) {

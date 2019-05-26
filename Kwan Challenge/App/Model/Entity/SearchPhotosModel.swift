@@ -14,7 +14,7 @@ struct SearchPhotosModel {
     var responseSearchPhotoModel: ResponseSearchPhotoModel?
     var searchPhotoView: SearchPhotosView?
     
-    mutating func prepareView() {
+    mutating func prepareView(by responseModel: ResponseSearchPhotoModel) {
         var model = SearchPhotosView()
         
         if let request = self.requestSearchPhotoModel,
@@ -22,25 +22,8 @@ struct SearchPhotosModel {
             model.page = pageInt
         }
         
-        if let response = self.responseSearchPhotoModel {
-            model.idPhotos = response.photos.photo.map {$0.id}
-        }
-        
+        model.photoIds = responseModel.photos.photo.map {$0.id}
         self.searchPhotoView = model
-    }
-    
-    func queryParameters() -> RestEntity {
-        
-        guard let model = self.requestSearchPhotoModel else { return RestEntity()}
-        var queryParametter = RestEntity()
-        queryParametter.add(value: model.method.rawValue, forKey: "method")
-        queryParametter.add(value: model.apiKey, forKey: "api_key")
-        queryParametter.add(value: model.tags, forKey: "tags")
-        queryParametter.add(value: model.page, forKey: "page")
-        queryParametter.add(value: model.format, forKey: "format")
-        queryParametter.add(value: model.nojsoncallback, forKey: "nojsoncallback")
-        
-        return queryParametter
     }
     
 }
@@ -50,7 +33,7 @@ struct SearchPhotosModel {
 extension SearchPhotosModel {
     struct SearchPhotosView {
         var page: Int = 0
-        var idPhotos: [String] = []
+        var photoIds: [String] = []
     }
 }
 
@@ -66,6 +49,18 @@ extension SearchPhotosModel {
         let format: String = "json"
         let nojsoncallback: String = "1"
         let method: MethodEnumModel = .photoSearch
+        
+        
+        func queryParameters() -> RestEntity {            
+            var queryParametter = RestEntity()
+            queryParametter.add(value: self.method.rawValue, forKey: "method")
+            queryParametter.add(value: self.apiKey, forKey: "api_key")
+            queryParametter.add(value: self.tags, forKey: "tags")
+            queryParametter.add(value: self.page, forKey: "page")
+            queryParametter.add(value: self.format, forKey: "format")
+            queryParametter.add(value: self.nojsoncallback, forKey: "nojsoncallback")
+            return queryParametter
+        }
     }
 }
 
@@ -82,7 +77,6 @@ extension SearchPhotosModel {
             }
             self = model
         }
-        
     }
     
     // MARK: - Photos

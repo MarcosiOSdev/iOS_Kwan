@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import os.log
 
 protocol PhotoServiceRef {
     typealias GetPhotoServiceHandler = (ResultCustomService<PhotoModel.ResponsePhotoModel, CustomErrorService>) -> Void
@@ -15,7 +16,28 @@ protocol PhotoServiceRef {
 }
 
 class PhotoService: BaseService, PhotoServiceRef {
-    func get(by model: PhotoModel.RequestPhotoModel, handler: @escaping PhotoService.GetPhotoServiceHandler) {
+    
+    func get(by model: PhotoModel.RequestPhotoModel,
+             handler: @escaping PhotoService.GetPhotoServiceHandler) {
+        let restAPI = RestApi()
+        restAPI.urlQueryParameters = model.queryParameters()
+        restAPI.makeRequest(toURL: url,
+                            withHttpMethod: .get,
+                            qos: .userInitiated) { results in
+                                
+                                if let data = results.data {
+                                    guard let responseModel = try? JSONDecoder().decode(PhotoModel.ResponsePhotoModel.self, from: data) else {
+                                        handler(.error(.formatterJson))
+                                        return
+                                    }
+                                    handler(.success(responseModel))
+                                }
+                                if let error = results.error {
+                                    print("Error: \(error).")
+                                    handler(.error(self.verifyError(error)))
+                                }
+                                
+        }
         
     }
 }

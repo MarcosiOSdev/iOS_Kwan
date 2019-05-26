@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="Kwan_Challenge" customModuleProvider="target">
             <connections>
+                <outlet property="collectionView" destination="sdh-AS-lkK" id="736-Bn-wFg"/>
                 <outlet property="errorLabel" destination="kzT-dz-HoF" id="pM6-yX-76f"/>
                 <outlet property="heightConstrintErrorLabel" destination="cFZ-8h-Sox" id="Lhu-21-NVc"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -22,9 +23,9 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="sdh-AS-lkK">
-                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="sdh-AS-lkK" customClass="PhotosCollectionView" customModule="Kwan_Challenge" customModuleProvider="target">
+                    <rect key="frame" x="8" y="52" width="398" height="810"/>
+                    <color key="backgroundColor" red="0.75287443399429321" green="0.75298398733139038" blue="0.75285047292709351" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="BUW-jY-TjZ">
                         <size key="itemSize" width="50" height="50"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -51,14 +52,14 @@
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.75406885150000003" green="0.75408679249999999" blue="0.75407713649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="oR7-De-Ul2" secondAttribute="trailing" id="5I7-U8-grZ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="sdh-AS-lkK" secondAttribute="bottom" id="7Mb-UB-IDk"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="sdh-AS-lkK" secondAttribute="trailing" id="MBv-5E-BR3"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="sdh-AS-lkK" secondAttribute="trailing" constant="8" id="MBv-5E-BR3"/>
                 <constraint firstItem="oR7-De-Ul2" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="MRT-Nz-3eW"/>
-                <constraint firstItem="sdh-AS-lkK" firstAttribute="top" secondItem="oR7-De-Ul2" secondAttribute="bottom" id="qTS-9C-2ew"/>
-                <constraint firstItem="sdh-AS-lkK" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="s9r-Dm-1eM"/>
+                <constraint firstItem="sdh-AS-lkK" firstAttribute="top" secondItem="oR7-De-Ul2" secondAttribute="bottom" constant="8" id="qTS-9C-2ew"/>
+                <constraint firstItem="sdh-AS-lkK" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="8" id="s9r-Dm-1eM"/>
                 <constraint firstItem="oR7-De-Ul2" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="wjv-oH-E1e"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
