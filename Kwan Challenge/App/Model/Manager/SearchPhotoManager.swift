@@ -19,7 +19,7 @@ class SearchPhotoManager: BaseManager {
     
     
     
-    func fetchDatas(page: Int = 1, completing: @escaping (_ success: SearchPhotosModel.SearchPhotosView) -> Void) {
+    func fetchDatas(page: Int? = 1, completing: @escaping (_ success: SearchPhotosModel.SearchPhotosView) -> Void) {
 
         let pageString = String(describing: page)
         photoModel.requestSearchPhotoModel = SearchPhotosModel.RequestSearchPhotoModel(apiKey: API.Info.key, page: pageString)

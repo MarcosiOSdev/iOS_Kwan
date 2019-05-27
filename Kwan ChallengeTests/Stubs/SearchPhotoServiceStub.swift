@@ -31,14 +31,14 @@ class SearchPhotoServiceStub: BaseServiceStub, SearchPhotoServiceRef {
                               SearchPhotosModel.Photo(id: "7"),
                               SearchPhotosModel.Photo(id: "8"),
                 ]
-                let photo = SearchPhotosModel.Photos(page: 1, pages: 1000, photo: photos)
+                let photo = SearchPhotosModel.Photos(page: 1, pages: 1000, perpage: 100, photo: photos)
                 let response = SearchPhotosModel.ResponseSearchPhotoModel(photos: photo, stat: "")
                 handler(.success(response))
             
             }
             if requestModel.page == "2" {
                 let photos = [SearchPhotosModel.Photo(id: "9")]
-                let photo = SearchPhotosModel.Photos(page: 1, pages: 1000, photo: photos)
+                let photo = SearchPhotosModel.Photos(page: 1, pages: 1000, perpage: 100, photo: photos)
                 let response = SearchPhotosModel.ResponseSearchPhotoModel(photos: photo, stat: "")
                 handler(.success(response))
             }

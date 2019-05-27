@@ -16,7 +16,11 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var heightConstrintErrorLabel: NSLayoutConstraint!
     
-    @IBOutlet weak var collectionView: PhotosCollectionView!
+    @IBOutlet weak var collectionView: PhotosCollectionView! {
+        didSet {
+            self.collectionView.photoDelegate = self
+        }
+    }
     
     var searchPhotoManager = SearchPhotoManager()
     var searchView: SearchView?
@@ -44,6 +48,7 @@ extension HomeViewController {
         case searchPhoto
         case successFetchSearchPhoto(SearchView)
         case performCollectionView
+        case nextPage(Int)
         case error(String)
         case none
     }
@@ -61,6 +66,9 @@ extension HomeViewController {
         case .performCollectionView:
             self.photosDataSourceReload()
             
+        case .nextPage(let page):
+            fetchSearchPhoto(page: page)
+            
         case .error(let errorString):
             settingError(errorString)
             
@@ -70,12 +78,19 @@ extension HomeViewController {
     }
 }
 
+//MARK: - InfinityScroll get nextPage
+extension HomeViewController: PhotosCollectionDelegate {
+    func nextPage(_ page: Int) {
+        self.handleSate = .nextPage(page)
+    }
+}
+
 
 //MARK: -- Fechtings , Use always API.
 extension HomeViewController {
     
-    func fetchSearchPhoto() {
-        self.searchPhotoManager.fetchDatas { [weak self] (modelView) in
+    func fetchSearchPhoto(page: Int? = nil) {
+        self.searchPhotoManager.fetchDatas(page: page) { [weak self] (modelView) in
             if let error = modelView.errorMessage {
                 self?.handleSate = .error(error)
             } else {

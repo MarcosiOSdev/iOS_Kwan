@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol PhotosCollectionDelegate: AnyObject {
+    func nextPage(_ page: Int)
+}
+
 class PhotosCollectionView: UICollectionView {
+    
+    weak var photoDelegate: PhotosCollectionDelegate?
     
     var photoManager = PhotoManager()
     
@@ -100,8 +106,8 @@ extension PhotosCollectionView {
         case .performItem:
             self.reloadData()
         case .getMoreItem:
+            self.photoDelegate?.nextPage(self.currentPage + 1)
             print("More item... !!")
-        //TODO:
         default:
             break
         }
@@ -137,7 +143,6 @@ extension PhotosCollectionView: UICollectionViewDataSource, UICollectionViewDele
     private func verifyMoreLoading(at indexPath: IndexPath) {
         
         if hasMoreItem {
-            
             let currentItem = indexPath.item
             let minimunItem = 4
             if currentItem + minimunItem >= self.totalItem {
