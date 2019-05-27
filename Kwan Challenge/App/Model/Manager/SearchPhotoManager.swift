@@ -19,10 +19,13 @@ class SearchPhotoManager: BaseManager {
     
     
     
-    func fetchDatas(page: Int? = 1, completing: @escaping (_ success: SearchPhotosModel.SearchPhotosView) -> Void) {
+    func fetchDatas(page: Int? = nil, completing: @escaping (_ success: SearchPhotosModel.SearchPhotosView) -> Void) {
 
-        let pageString = String(describing: page)
-        photoModel.requestSearchPhotoModel = SearchPhotosModel.RequestSearchPhotoModel(apiKey: API.Info.key, page: pageString)
+        let pageInt = page ?? 1 // first page is always 1
+        let pageString = String(describing: pageInt)
+        photoModel.requestSearchPhotoModel =
+            SearchPhotosModel.RequestSearchPhotoModel(apiKey: API.Info.key,
+                                                      page: pageString)
         
         self.service.photoSearch(requestModel: photoModel.requestSearchPhotoModel!) { [weak self] (resultCustom) in            
             

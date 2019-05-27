@@ -16,17 +16,25 @@ class PhotosCollectionView: UICollectionView {
     
     weak var photoDelegate: PhotosCollectionDelegate?
     
+    //Manager Obj
     var photoManager = PhotoManager()
     
+    //photoIds
     var photoIds: [String]?
     
-    var totalItem:Int {
-        return self.searchPhotoView?.photosPerPage ?? 0
-    }
+    
+    //Var when get more item, for dont call again the same page
+    var isGettingMoreItem: Bool = false
+    
+    //Total item in this page
+    var totalItem:Int = 0
+    
+    //Current Page
     var currentPage:Int {
         return self.searchPhotoView?.page ?? 0
     }
     
+    //Verify if current page is less that total
     var hasMoreItem: Bool {
         guard let totalPages = self.searchPhotoView?.totalPage else { return false }
         return totalPages > currentPage
@@ -41,6 +49,8 @@ class PhotosCollectionView: UICollectionView {
             } else {
                 self.photoIds?.append(contentsOf: searchPhotoView.photoIds)
             }
+            
+            self.totalItem += self.searchPhotoView?.photosPerPage ?? 0
             self.handleState = .performItem
         }
     }
@@ -105,9 +115,10 @@ extension PhotosCollectionView {
         switch self.handleState {
         case .performItem:
             self.reloadData()
+            self.isGettingMoreItem = false
         case .getMoreItem:
+            self.isGettingMoreItem = true
             self.photoDelegate?.nextPage(self.currentPage + 1)
-            print("More item... !!")
         default:
             break
         }
@@ -139,10 +150,8 @@ extension PhotosCollectionView: UICollectionViewDataSource, UICollectionViewDele
         return self.isPortrate ? self.sizeOfCellInPortrate : self.sizeOfCellInLandscape
     }
     
-    
     private func verifyMoreLoading(at indexPath: IndexPath) {
-        
-        if hasMoreItem {
+        if hasMoreItem && !isGettingMoreItem{
             let currentItem = indexPath.item
             let minimunItem = 4
             if currentItem + minimunItem >= self.totalItem {
@@ -173,11 +182,9 @@ extension PhotosCollectionView: UICollectionViewDataSource, UICollectionViewDele
     }
     
     private func shadownInCell(_ cell: ItemCollectionViewCell) {
-        
         //rounded the cell
         cell.layer.masksToBounds = true
         cell.layer.cornerRadius = 15
-        
         
         //Border for Shadow
         cell.contentView.layer.cornerRadius = 10
