@@ -112,9 +112,7 @@ extension HomeViewController {
     
     func photosDataSourceReload() {
         if let searchView = self.searchView {
-            self.collectionView.photoIds = searchView.photoIds
-        } else {
-            self.handleSate = .error("Dont have photo.")
-        }
+            self.collectionView.searchPhotoView = searchView
+        } 
     }
 }

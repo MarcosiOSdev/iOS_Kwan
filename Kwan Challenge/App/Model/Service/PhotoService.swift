@@ -33,7 +33,6 @@ class PhotoService: BaseService, PhotoServiceRef {
                                     handler(.success(responseModel))
                                 }
                                 if let error = results.error {
-                                    print("Error: \(error).")
                                     handler(.error(self.verifyError(error)))
                                 }
                                 

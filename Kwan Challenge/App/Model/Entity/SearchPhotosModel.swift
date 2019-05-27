@@ -22,6 +22,8 @@ struct SearchPhotosModel {
             model.page = pageInt
         }
         
+        model.totalPage = responseModel.photos.pages
+        model.photosPerPage = responseModel.photos.perpage
         model.photoIds = responseModel.photos.photo.map {$0.id}
         self.searchPhotoView = model
     }
@@ -41,6 +43,9 @@ extension SearchPhotosModel {
         var page: Int = 0
         var photoIds: [String] = []
         var errorMessage: String?
+        
+        var totalPage:Int = 0
+        var photosPerPage:Int = 0
     }
 }
 
@@ -93,13 +98,14 @@ extension SearchPhotosModel {
     
     // MARK: - Photos
     struct Photos: Codable {
-        let page, pages: Int
+        let page, pages, perpage: Int
         let photo: [Photo]
         
-        init(page: Int, pages:Int, photo: [Photo]) {
+        init(page: Int, pages:Int, perpage:Int, photo: [Photo]) {
             self.page = page
             self.pages = pages
             self.photo = photo
+            self.perpage = perpage
         }
     }
     

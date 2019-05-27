@@ -12,11 +12,30 @@ class PhotosCollectionView: UICollectionView {
     
     var photoManager = PhotoManager()
     
-    var photoIds: [String]? {
+    var photoIds: [String]?
+    
+    var totalItem:Int {
+        return self.searchPhotoView?.photosPerPage ?? 0
+    }
+    var currentPage:Int {
+        return self.searchPhotoView?.page ?? 0
+    }
+    
+    var hasMoreItem: Bool {
+        guard let totalPages = self.searchPhotoView?.totalPage else { return false }
+        return totalPages > currentPage
+    }
+    
+    var searchPhotoView: SearchPhotosModel.SearchPhotosView? {
         didSet {
-            if let photoIds = photoIds, photoIds.count > 0 {
-                self.handleState = .performItem
+            guard let searchPhotoView = searchPhotoView else { return }
+            
+            if self.photoIds == nil || self.photoIds?.count == 0 {
+                self.photoIds = searchPhotoView.photoIds
+            } else {
+                self.photoIds?.append(contentsOf: searchPhotoView.photoIds)
             }
+            self.handleState = .performItem
         }
     }
     
@@ -72,6 +91,7 @@ class PhotosCollectionView: UICollectionView {
 extension PhotosCollectionView {
     public enum HandleState {
         case performItem
+        case getMoreItem
         case none
     }
     
@@ -79,6 +99,9 @@ extension PhotosCollectionView {
         switch self.handleState {
         case .performItem:
             self.reloadData()
+        case .getMoreItem:
+            print("More item... !!")
+        //TODO:
         default:
             break
         }
@@ -98,6 +121,33 @@ extension PhotosCollectionView: UICollectionViewDataSource, UICollectionViewDele
             return UICollectionViewCell()
         }
         
+        self.loadingCell(cell, at: indexPath)
+        self.shadownInCell(cell)
+        self.verifyMoreLoading(at: indexPath)
+        
+        return cell
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return self.isPortrate ? self.sizeOfCellInPortrate : self.sizeOfCellInLandscape
+    }
+    
+    
+    private func verifyMoreLoading(at indexPath: IndexPath) {
+        
+        if hasMoreItem {
+            
+            let currentItem = indexPath.item
+            let minimunItem = 4
+            if currentItem + minimunItem >= self.totalItem {
+                self.handleState = .getMoreItem
+            }
+            
+        }
+    }
+    
+    private func loadingCell(_ cell: ItemCollectionViewCell, at indexPath: IndexPath) {
         // If loaded the image , dont loaded again
         if listModelCache.keys.contains(indexPath.item)  {
             let photoView = listModelCache[indexPath.item]
@@ -115,16 +165,7 @@ extension PhotosCollectionView: UICollectionViewDataSource, UICollectionViewDele
                 }
             }
         }
-        self.shadownInCell(cell)
-        
-        return cell
     }
-    
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return self.isPortrate ? self.sizeOfCellInPortrate : self.sizeOfCellInLandscape
-    }
-    
     
     private func shadownInCell(_ cell: ItemCollectionViewCell) {
         
