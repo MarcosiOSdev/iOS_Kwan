@@ -30,6 +30,22 @@ class PhotoManagerTests: XCTestCase {
         //PhotoManager get id photo 1
         self.photoManager.getPhoto(photoId: "1") { (photoView) in
             
+            // -- Then Request set same photo ID
+            XCTAssertEqual(self.photoManager.model.requestPhotoModel?.photoId, "1")
+            
+            // -- Then there are response
+            XCTAssertNotNil(self.photoManager.model.responsePhotoModel)
+            
+            
+            let large = self.photoManager.model.responsePhotoModel?.sizes.size.filter{ $0.label == "Large"}.first!
+            
+            let square = self.photoManager.model.responsePhotoModel?.sizes.size.filter{ $0.label == "Large Square"}.first!
+            
+            // -- Should have response result like the photoView
+            XCTAssertEqual(large?.source, photoView.sourceLarge)
+            XCTAssertEqual(square?.source, photoView.sourceLarge)
+            
+            
             // -- Then PhotoView id is like the send
             XCTAssertEqual(photoView.id, "1")
             
@@ -49,6 +65,12 @@ class PhotoManagerTests: XCTestCase {
         photoManager = PhotoManager(photoService: photoServiceStub)
         
         photoManager.getPhoto(photoId: "1") { (photoView) in
+            
+            // -- Then Request set same photo ID
+            XCTAssertEqual(self.photoManager.model.requestPhotoModel?.photoId, "1")
+            
+            // -- Then there arent response
+            XCTAssertNil(self.photoManager.model.responsePhotoModel)
             
             // -- Then doenst have url
             XCTAssertNil(photoView.sourceLarge)

@@ -26,7 +26,7 @@ class PhotosCollectionView: UICollectionView {
         }
     }
     
-    var listModelCache: [Int: PhotoModel.PhotoView] = [Int: PhotoModel.PhotoView]()
+    var listModelCache = [Int: PhotoModel.PhotoView]()
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

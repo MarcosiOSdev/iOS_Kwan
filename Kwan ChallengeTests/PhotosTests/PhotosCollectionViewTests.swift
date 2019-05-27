@@ -78,14 +78,6 @@ class PhotosCollectionViewTests: XCTestCase {
         
         // -- Then Photos ID is equals number of cache
         XCTAssertEqual(photosCollectionView.photoIds?.count, 3)
-        
-        //Animation in Error Label and Constraint from 0 to 50.
-        let cancelExpectation = expectation(description: "Animation in ErrorLabel")
-        cancelExpectation.isInverted = true
-        waitForExpectations(timeout: 3.0, handler: nil)
-        
-        
-        XCTAssertEqual(photosCollectionView.photoIds?.count, photosCollectionView.listModelCache.count)
     }
     
 }
