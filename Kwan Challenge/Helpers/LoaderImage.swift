@@ -35,32 +35,42 @@ class LoaderImageView: UIImageView {
         
         //There is the image in Disk
         let valueImage = "\(id)-\(urlString)"
-        imageExist = valueImage
-        self.newImage = nil
-        if let imageForCache = imageCache.object(forKey: urlString as AnyObject) as? UIImage {
-            self.image = imageForCache
+        self.image = nil
+        self.imageExist = valueImage
+        
+        if let imageForCache = imageCache.object(forKey: valueImage as AnyObject) as? UIImage {
+            self.newImage = imageForCache
             if let completion = completion {
                 completion(true)
             }
             return
         }
         
-        DispatchQueue.global(qos: .userInitiated).async {
-            guard let url = URL(string: urlString) else { return }
-            URLSession.shared.dataTask(with: url) { (data, response, error) in
-                if data != nil {                    
-                    DispatchQueue.main.async {
-                        let imageForCache = UIImage(data: data!)
-                        if self.imageExist == valueImage {
-                            self.newImage = imageForCache
-                        }
-                        imageCache.setObject(imageForCache!, forKey: valueImage as AnyObject)
+        
+        guard let url = URL(string: urlString) else { return }
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in            
+            performUIUpdate {
+                if let data = data {
+                    guard let imageForCache = UIImage(data: data) else {
+                        self.image = nil
                         if let completion = completion {
                             completion(true)
                         }
+                        return
+                    }
+                    
+                    if self.imageExist == valueImage {
+                        self.newImage = imageForCache
+                    }
+                    
+                    imageCache.setObject(imageForCache, forKey: valueImage as AnyObject)
+                    if let completion = completion {
+                        completion(true)
                     }
                 }
-            }.resume()
-        }
+            }
+        }.resume()
+        
     }
 }

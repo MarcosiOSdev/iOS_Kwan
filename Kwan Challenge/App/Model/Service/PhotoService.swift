@@ -23,7 +23,7 @@ class PhotoService: BaseService, PhotoServiceRef {
         restAPI.urlQueryParameters = model.queryParameters()
         restAPI.makeRequest(toURL: url,
                             withHttpMethod: .get,
-                            qos: .userInitiated) { results in
+                            qos: .userInteractive) { results in
                                 
                                 if let data = results.data {
                                     guard let responseModel = try? JSONDecoder().decode(PhotoModel.ResponsePhotoModel.self, from: data) else {

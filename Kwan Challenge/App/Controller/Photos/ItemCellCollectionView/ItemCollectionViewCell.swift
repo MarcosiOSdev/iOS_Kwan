@@ -22,12 +22,15 @@ class ItemCollectionViewCell: UICollectionViewCell {
         didSet{
             guard let photoView = self.photoView,
             let id = photoView.id,
-            let source = photoView.sourceSquare else { return }
+            let source = photoView.sourceSquare else {
+                self.imageView.image = nil
+                return
+            }
             self.imageView.loadImage(by: id, withSource: source) { completed in
                 if completed {
                     if let _  = self.imageView.image {
                         self.imageView.isShimmering = false
-                    }                    
+                    }
                 }
             }
         }
@@ -35,6 +38,15 @@ class ItemCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        //Default image
+        self.imageView.image = UIImage(named:"image-default")
+        
+        //Loading image
+        self.imageView.isShimmering = true
+        
+        //Round image
+        self.imageView.layer.masksToBounds = true
+        self.imageView.layer.cornerRadius = 10
     }
     
 }

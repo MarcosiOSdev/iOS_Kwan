@@ -23,14 +23,14 @@ class PhotoManager: BaseManager {
         
         self.photoService.get(by: model.requestPhotoModel! ) { [weak self](resultCustom) in
             
-            DispatchQueue.main.async {
+            performUIUpdate {
                 guard let weakSelf = self else {
                     return
                 }
                 switch resultCustom {
                 case .success(let success):
                     weakSelf.model.responsePhotoModel = success
-                    weakSelf.model.performView(by: success)                    
+                    weakSelf.model.performView(by: success)
                 case .error(let error):
                     weakSelf.model.performView(by: weakSelf.errorToUser(error))
                 }

@@ -11,24 +11,54 @@ import XCTest
 
 class PhotoManagerTests: XCTestCase {
 
+    var photoServiceStub: PhotoServiceRef!
+    var photoManager: PhotoManager!
+    
+    
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        photoServiceStub = PhotoServiceStub()
+        photoManager = PhotoManager(photoService: photoServiceStub)
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        photoManager = nil
+        photoServiceStub = nil
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func testGetPhotoId() {
+        
+        //PhotoManager get id photo 1
+        self.photoManager.getPhoto(photoId: "1") { (photoView) in
+            
+            // -- Then PhotoView id is like the send
+            XCTAssertEqual(photoView.id, "1")
+            
+            // -- Then PhotoView with large qnd square
+            XCTAssertNotNil(photoView.sourceLarge)
+            XCTAssertNotNil(photoView.sourceSquare)
+            
+            // -- Then PhotoView doesnt have error
+            XCTAssertNil(photoView.errorMessage)
         }
     }
-
+    
+    func testErrorInService() {
+        
+        //PhotoManager get id photo 1 with service without conections
+        self.photoServiceStub = PhotoServiceStub(fakeError: .conectionApi)
+        photoManager = PhotoManager(photoService: photoServiceStub)
+        
+        photoManager.getPhoto(photoId: "1") { (photoView) in
+            
+            // -- Then doenst have url
+            XCTAssertNil(photoView.sourceLarge)
+            XCTAssertNil(photoView.sourceSquare)
+            
+            // -- And has error
+            XCTAssertNotNil(photoView.errorMessage)
+            
+            // And Error is like
+            XCTAssertEqual(photoView.errorMessage, "Verify your conection.")
+        }
+    }
 }

@@ -26,7 +26,7 @@ extension UIView {
         }
         set {
             self.isAnimate = newValue
-            newValue ? self.startShimmer() : self.stopShimmer()
+            newValue ? self.startShimmer(view: self) : self.stopShimmer(view: self)
         }
     }
     
@@ -83,10 +83,8 @@ extension UIView {
             view.layer.removeAllAnimations()
             view.layer.mask = nil
         } else {
-            for animateView in getSubViewsForAnimate() {
-                animateView.layer.removeAllAnimations()
-                animateView.layer.mask = nil
-            }
+            self.layer.removeAllAnimations()
+            self.layer.mask = nil
         }
     }
     

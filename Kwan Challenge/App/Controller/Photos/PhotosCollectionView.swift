@@ -15,28 +15,18 @@ class PhotosCollectionView: UICollectionView {
     var photoIds: [String]? {
         didSet {
             if let photoIds = photoIds, photoIds.count > 0 {
-                self.statePresentation = .performItem
+                self.handleState = .performItem
             }
         }
     }
     
-    var listModelCache: [IndexPath: PhotoModel.PhotoView] = [IndexPath: PhotoModel.PhotoView]()
-    
-    private var statePresentation: HandleState = .none {
+    var handleState: HandleState = .none {
         didSet {
             self.performHandleState()
         }
     }
     
-    private enum HandleState {
-        case performItem
-        case none
-    }
-    
-    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
-        super.init(frame: frame, collectionViewLayout: layout)
-        self.initCustom()
-    }
+    var listModelCache: [Int: PhotoModel.PhotoView] = [Int: PhotoModel.PhotoView]()
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -78,9 +68,15 @@ class PhotosCollectionView: UICollectionView {
     
 }
 
+//MARK : - Presentation Logic with HandleState, get all state in ViewController
 extension PhotosCollectionView {
+    public enum HandleState {
+        case performItem
+        case none
+    }
+    
     private func performHandleState() {
-        switch self.statePresentation {
+        switch self.handleState {
         case .performItem:
             self.reloadData()
         default:
@@ -102,21 +98,24 @@ extension PhotosCollectionView: UICollectionViewDataSource, UICollectionViewDele
             return UICollectionViewCell()
         }
         
-        if listModelCache.keys.contains(indexPath)  {
-            let photoView = listModelCache[indexPath]
+        // If loaded the image , dont loaded again
+        if listModelCache.keys.contains(indexPath.item)  {
+            let photoView = listModelCache[indexPath.item]
             cell.photoView = photoView
             
         } else {
+            // If not loaded the image , then loaded it for first time.
             if let id = self.photoIds?[indexPath.item] {
-                self.photoManager.getPhoto(photoId: id) { (photoView) in
-                    DispatchQueue.main.async {
-                        cell.photoView = photoView
-                        self.listModelCache[indexPath] = photoView
+                self.photoManager.getPhoto(photoId: id) { [weak self] (photoView) in
+                    if let _ = photoView.errorMessage {
+                        return
                     }
+                    self?.listModelCache[indexPath.item] = photoView
+                    cell.photoView = photoView
                 }
             }
         }
-        
+        self.shadownInCell(cell)
         
         return cell
     }
@@ -126,17 +125,21 @@ extension PhotosCollectionView: UICollectionViewDataSource, UICollectionViewDele
         return self.isPortrate ? self.sizeOfCellInPortrate : self.sizeOfCellInLandscape
     }
     
-    private func shadownInCell (cell: ItemCollectionViewCell) {
+    
+    private func shadownInCell(_ cell: ItemCollectionViewCell) {
         
+        //rounded the cell
         cell.layer.masksToBounds = true
-        cell.layer.cornerRadius = 20
+        cell.layer.cornerRadius = 15
         
+        
+        //Border for Shadow
         cell.contentView.layer.cornerRadius = 10
         cell.contentView.layer.borderWidth = 1.0
-        
         cell.contentView.layer.borderColor = UIColor.clear.cgColor
         cell.contentView.layer.masksToBounds = true
         
+        //Drawing Shadow
         cell.layer.shadowColor = UIColor.gray.cgColor
         cell.layer.shadowOffset = CGSize(width: 0, height: 2.0)
         cell.layer.shadowRadius = 2.0
