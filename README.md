@@ -5,11 +5,11 @@
 I'm Marcos Felipe.
 This project is for my test for Kwan. 
 
-## UnitTest
-![alt text](https://github.com/MarcosiOSdev/iOS_Kwan/blob/master/unitTest.png)
+## UnitTest - managers and viewControllers UI states
+![alt text](/unitTest.png)
 
-## Coverage 
-![alt_text](https://github.com/MarcosiOSdev/iOS_Kwan/blob/master/coverageUnitTest.png)
+## Coverage 80% up
+![alt_text](/coverageUnitTest.png)
 
 
 ## Architecture:
