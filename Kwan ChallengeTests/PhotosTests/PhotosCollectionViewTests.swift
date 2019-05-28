@@ -142,4 +142,20 @@ class PhotosCollectionViewTests: XCTestCase {
         
     }
     
+    
+    func testOpenPhoto() {
+            
+        // Init HomeViewController (HomeVC), for get its manager and service Stub.
+        self.homeViewController.viewDidAppear(false)
+    
+        
+        // -- when collection view start is handle in perform
+        XCTAssertEqual(self.photosCollectionView.handleState, .performItem)
+        
+        // -- Then the first view is selected
+        self.photosCollectionView.collectionView(self.photosCollectionView, didSelectItemAt: IndexPath(item: 1, section: 0))
+        
+        XCTAssertEqual(self.photosCollectionView.handleState, .tapOnCell(IndexPath(item: 1, section: 0)))
+        
+    }
 }

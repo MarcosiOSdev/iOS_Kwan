@@ -25,6 +25,9 @@ class HomeViewController: UIViewController {
     var searchPhotoManager = SearchPhotoManager()
     var searchView: SearchView?
     
+    //When run viewDidAppear always when this view appears
+    var isRunning: Bool = false
+    
     var handleSate: HandleState = .none {
         didSet {
             performHandleState()
@@ -35,10 +38,9 @@ class HomeViewController: UIViewController {
 
 //MARK: - LifeCycle ViewController
 extension HomeViewController {
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.handleSate = .searchPhoto
+        self.handleSate = isRunning ? .none : .searchPhoto
     }
 }
 
@@ -57,6 +59,7 @@ extension HomeViewController {
     func performHandleState() {
         switch self.handleSate {
         case .searchPhoto:
+            isRunning = true
             settingError(nil)
             fetchSearchPhoto()
             
@@ -140,19 +143,9 @@ extension HomeViewController {
     }
     
     func imageOnFullscreen(_ photoView: PhotoModel.PhotoView) {
-        let newImageView = LoaderImageView(frame: UIScreen.main.bounds)
-        newImageView.loadImage(by: photoView.id!, withSource: photoView.sourceLarge!)
-        newImageView.backgroundColor = .black
-        newImageView.contentMode = .scaleAspectFit
-        newImageView.isUserInteractionEnabled = true
-        newImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage)))
-        self.navigationController?.isNavigationBarHidden = true
-        self.tabBarController?.tabBar.isHidden = true
-        self.view.addSubview(newImageView)
-    }
-    @objc func dismissFullscreenImage(_ sender: UITapGestureRecognizer) {
-        self.navigationController?.isNavigationBarHidden = false
-        self.tabBarController?.tabBar.isHidden = false
-        sender.view?.removeFromSuperview()
+        let fullScreen = FullScreenImageViewController.loadFromNib()
+        fullScreen.urlString = photoView.sourceLarge
+        self.present(fullScreen, animated: true)
     }
 }
+

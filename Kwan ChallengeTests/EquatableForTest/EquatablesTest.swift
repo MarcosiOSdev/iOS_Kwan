@@ -32,6 +32,24 @@ extension HomeViewController.HandleState : Equatable {
     }
 }
 
+extension PhotosCollectionView.HandleState : Equatable {
+    public static func == (lhs: PhotosCollectionView.HandleState, rhs: PhotosCollectionView.HandleState) -> Bool {
+        switch (lhs, rhs) {
+        case (.performItem ,.performItem):
+            return true
+        case (.getMoreItem ,.getMoreItem):
+            return true
+        case (.tapOnCell(let lhsValue) ,.tapOnCell(let rhsValue)):            
+            return lhsValue == rhsValue
+        case (.none ,.none):
+            return true
+        default:
+            return false
+        }
+    }
+    
+    
+}
 
 extension SearchPhotosModel.SearchPhotosView : Equatable {
     public static func == (lhs: SearchPhotosModel.SearchPhotosView, rhs: SearchPhotosModel.SearchPhotosView) -> Bool {
@@ -39,9 +57,6 @@ extension SearchPhotosModel.SearchPhotosView : Equatable {
         return lhs.page == rhs.page &&
             lhs.photoIds.count == rhs.photoIds.count &&
             lhs.errorMessage == rhs.errorMessage
-        
     }
-    
-    
 }
 

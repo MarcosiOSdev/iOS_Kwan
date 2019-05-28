@@ -30,8 +30,7 @@ class HomeViewControllerTests: XCTestCase {
         vc = nil
     }
     
-    func testViewController() {
-        
+    func testViewController() {        
         //When init HomeViewController
         // -- Then Collection view is empty.
         XCTAssertNil(self.vc.collectionView.photoIds)

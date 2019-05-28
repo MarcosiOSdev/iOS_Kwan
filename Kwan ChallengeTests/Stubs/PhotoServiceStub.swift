@@ -26,8 +26,9 @@ class PhotoServiceStub:BaseServiceStub, PhotoServiceRef {
     
     private func mockSuccessFunc(_ model: PhotoModel.RequestPhotoModel, _ handler: @escaping PhotoServiceStub.GetPhotoServiceHandler) {
         
-        let source = """
-                    https://live.staticflickr.com/5800/31456463045_5a0af4ddc8_s.jpg
+        let source =
+        """
+            https://live.staticflickr.com/5800/31456463045_5a0af4ddc8_s.jpg
             """
         
         let size: [PhotoModel.Size] = [

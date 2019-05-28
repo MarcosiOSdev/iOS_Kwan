@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1809962B229A257E003D3333 /* SearchPhotoServiceStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1809962A229A257E003D3333 /* SearchPhotoServiceStub.swift */; };
+		1819E924229CCC9A00BFC1DA /* FullScreenImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1819E922229CCC9A00BFC1DA /* FullScreenImageViewController.swift */; };
+		1819E925229CCC9A00BFC1DA /* FullScreenImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1819E923229CCC9A00BFC1DA /* FullScreenImageViewController.xib */; };
 		182252BC229A4B4800009AD6 /* EquatablesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182252BB229A4B4800009AD6 /* EquatablesTest.swift */; };
 		1853A7292298CAF600C99411 /* LoaderImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1853A7282298CAF600C99411 /* LoaderImage.swift */; };
 		1853A72B2298CB6D00C99411 /* MFShimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1853A72A2298CB6D00C99411 /* MFShimmerView.swift */; };
@@ -46,6 +48,7 @@
 		1874706D2297821D00D4C697 /* UIViewController+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1874706C2297821D00D4C697 /* UIViewController+Custom.swift */; };
 		187470702297836100D4C697 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1874706E2297836100D4C697 /* HomeViewController.swift */; };
 		187470712297836100D4C697 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1874706F2297836100D4C697 /* HomeViewController.xib */; };
+		18EC9352229CE4180063EDFE /* FullScreenImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EC9351229CE4180063EDFE /* FullScreenImageTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +63,8 @@
 
 /* Begin PBXFileReference section */
 		1809962A229A257E003D3333 /* SearchPhotoServiceStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPhotoServiceStub.swift; sourceTree = "<group>"; };
+		1819E922229CCC9A00BFC1DA /* FullScreenImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenImageViewController.swift; sourceTree = "<group>"; };
+		1819E923229CCC9A00BFC1DA /* FullScreenImageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FullScreenImageViewController.xib; sourceTree = "<group>"; };
 		182252BB229A4B4800009AD6 /* EquatablesTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquatablesTest.swift; sourceTree = "<group>"; };
 		1853A7282298CAF600C99411 /* LoaderImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderImage.swift; sourceTree = "<group>"; };
 		1853A72A2298CB6D00C99411 /* MFShimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFShimmerView.swift; sourceTree = "<group>"; };
@@ -104,6 +109,7 @@
 		1874706C2297821D00D4C697 /* UIViewController+Custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Custom.swift"; sourceTree = "<group>"; };
 		1874706E2297836100D4C697 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		1874706F2297836100D4C697 /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
+		18EC9351229CE4180063EDFE /* FullScreenImageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenImageTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +147,15 @@
 				1855E357229B18FF00503E8F /* BaseServiceStub.swift */,
 			);
 			path = Stubs;
+			sourceTree = "<group>";
+		};
+		1819E921229CCC5500BFC1DA /* FullScrenImage */ = {
+			isa = PBXGroup;
+			children = (
+				1819E922229CCC9A00BFC1DA /* FullScreenImageViewController.swift */,
+				1819E923229CCC9A00BFC1DA /* FullScreenImageViewController.xib */,
+			);
+			path = FullScrenImage;
 			sourceTree = "<group>";
 		};
 		182252BA229A4B3300009AD6 /* EquatableForTest */ = {
@@ -221,6 +236,7 @@
 		1874703A22976EF400D4C697 /* Kwan ChallengeTests */ = {
 			isa = PBXGroup;
 			children = (
+				18EC9350229CE3FE0063EDFE /* FullScreenImageTests */,
 				1855E350229B174F00503E8F /* PhotosTests */,
 				182252BA229A4B3300009AD6 /* EquatableForTest */,
 				18099629229A2575003D3333 /* Stubs */,
@@ -279,6 +295,7 @@
 		187470612297778500D4C697 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				1819E921229CCC5500BFC1DA /* FullScrenImage */,
 				1874702F22976EF300D4C697 /* LaunchScreen.storyboard */,
 				1869E3252299F9F400084DD6 /* Photos */,
 				1874706922977D3800D4C697 /* Home */,
@@ -325,6 +342,14 @@
 				1874706F2297836100D4C697 /* HomeViewController.xib */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		18EC9350229CE3FE0063EDFE /* FullScreenImageTests */ = {
+			isa = PBXGroup;
+			children = (
+				18EC9351229CE4180063EDFE /* FullScreenImageTests.swift */,
+			);
+			path = FullScreenImageTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -409,6 +434,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18747057229773B500D4C697 /* Staging.xcconfig in Resources */,
+				1819E925229CCC9A00BFC1DA /* FullScreenImageViewController.xib in Resources */,
 				1874703122976EF300D4C697 /* LaunchScreen.storyboard in Resources */,
 				1874702E22976EF300D4C697 /* Assets.xcassets in Resources */,
 				1869E3202299C09D00084DD6 /* ItemCollectionViewCell.xib in Resources */,
@@ -432,6 +458,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				187470502297730000D4C697 /* Results.swift in Sources */,
+				1819E924229CCC9A00BFC1DA /* FullScreenImageViewController.swift in Sources */,
 				1853A7352298D88F00C99411 /* ResultCustomService.swift in Sources */,
 				1869E3272299FA1400084DD6 /* PhotosCollectionView.swift in Sources */,
 				1869E3182298F83900084DD6 /* PhotoManager.swift in Sources */,
@@ -466,6 +493,7 @@
 				1855E354229B178300503E8F /* PhotoManagerTests.swift in Sources */,
 				182252BC229A4B4800009AD6 /* EquatablesTest.swift in Sources */,
 				1855E358229B18FF00503E8F /* BaseServiceStub.swift in Sources */,
+				18EC9352229CE4180063EDFE /* FullScreenImageTests.swift in Sources */,
 				1855E34F229B10AF00503E8F /* SearchPhotoManagerTests.swift in Sources */,
 				1855E356229B17F700503E8F /* PhotoServiceStub.swift in Sources */,
 				1809962B229A257E003D3333 /* SearchPhotoServiceStub.swift in Sources */,

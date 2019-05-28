@@ -109,26 +109,36 @@ extension PhotosCollectionView {
     public enum HandleState {
         case performItem
         case getMoreItem
-        case tapOnCell(PhotoModel.PhotoView)
+        case tapOnCell(IndexPath)
         case none
     }
     
     private func performHandleState() {
         switch self.handleState {
         case .performItem:
-            self.reloadData()
             self.isGettingMoreItem = false
+            self.reloadData()
         case .getMoreItem:
             self.isGettingMoreItem = true
             self.photoDelegate?.nextPage(self.currentPage + 1)
-        case .tapOnCell(let modelView):
-            self.photoDelegate?.didTap(on: modelView)
+        case .tapOnCell(let indexPath):
+            self.tapOnCell(at: indexPath)
         default:
             break
         }
     }
 }
 
+//MARK: - Other Functions
+extension PhotosCollectionView {
+    
+    func tapOnCell(at indexPath: IndexPath) {        
+        guard let cell = self.cellForItem(at: indexPath) as? ItemCollectionViewCell,
+            let modelView = cell.photoView else { return }
+        self.photoDelegate?.didTap(on: modelView)
+    }
+    
+}
 
 extension PhotosCollectionView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -150,10 +160,7 @@ extension PhotosCollectionView: UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? ItemCollectionViewCell,
-            let modelView = cell.photoView else { return }
-        
-        self.handleState = .tapOnCell(modelView)
+        self.handleState = .tapOnCell(indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
