@@ -10,6 +10,7 @@ import UIKit
 
 protocol PhotosCollectionDelegate: AnyObject {
     func nextPage(_ page: Int)
+    func didTap(on photoView: PhotoModel.PhotoView)
 }
 
 class PhotosCollectionView: UICollectionView {
@@ -108,6 +109,7 @@ extension PhotosCollectionView {
     public enum HandleState {
         case performItem
         case getMoreItem
+        case tapOnCell(PhotoModel.PhotoView)
         case none
     }
     
@@ -119,6 +121,8 @@ extension PhotosCollectionView {
         case .getMoreItem:
             self.isGettingMoreItem = true
             self.photoDelegate?.nextPage(self.currentPage + 1)
+        case .tapOnCell(let modelView):
+            self.photoDelegate?.didTap(on: modelView)
         default:
             break
         }
@@ -145,6 +149,12 @@ extension PhotosCollectionView: UICollectionViewDataSource, UICollectionViewDele
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? ItemCollectionViewCell,
+            let modelView = cell.photoView else { return }
+        
+        self.handleState = .tapOnCell(modelView)
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return self.isPortrate ? self.sizeOfCellInPortrate : self.sizeOfCellInLandscape

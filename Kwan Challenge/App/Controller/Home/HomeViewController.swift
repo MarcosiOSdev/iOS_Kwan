@@ -49,6 +49,7 @@ extension HomeViewController {
         case successFetchSearchPhoto(SearchView)
         case performCollectionView
         case nextPage(Int)
+        case showImage(PhotoModel.PhotoView)
         case error(String)
         case none
     }
@@ -69,6 +70,9 @@ extension HomeViewController {
         case .nextPage(let page):
             fetchSearchPhoto(page: page)
             
+        case .showImage(let modelView):
+            imageOnFullscreen(modelView)
+            
         case .error(let errorString):
             settingError(errorString)
             
@@ -80,6 +84,10 @@ extension HomeViewController {
 
 //MARK: - InfinityScroll get nextPage
 extension HomeViewController: PhotosCollectionDelegate {
+    func didTap(on photoView: PhotoModel.PhotoView) {
+        self.handleSate = .showImage(photoView)
+    }
+    
     func nextPage(_ page: Int) {
         self.handleSate = .nextPage(page)
     }
@@ -129,5 +137,22 @@ extension HomeViewController {
         if let searchView = self.searchView {
             self.collectionView.searchPhotoView = searchView
         } 
+    }
+    
+    func imageOnFullscreen(_ photoView: PhotoModel.PhotoView) {
+        let newImageView = LoaderImageView(frame: UIScreen.main.bounds)
+        newImageView.loadImage(by: photoView.id!, withSource: photoView.sourceLarge!)
+        newImageView.backgroundColor = .black
+        newImageView.contentMode = .scaleAspectFit
+        newImageView.isUserInteractionEnabled = true
+        newImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage)))
+        self.navigationController?.isNavigationBarHidden = true
+        self.tabBarController?.tabBar.isHidden = true
+        self.view.addSubview(newImageView)
+    }
+    @objc func dismissFullscreenImage(_ sender: UITapGestureRecognizer) {
+        self.navigationController?.isNavigationBarHidden = false
+        self.tabBarController?.tabBar.isHidden = false
+        sender.view?.removeFromSuperview()
     }
 }
