@@ -62,8 +62,7 @@ class RestApi: NSObject {
     }
     
     func getData(fromURL url: URL, completion: @escaping (_ data: Data?) -> Void) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            
+        DispatchQueue.global(qos: .userInitiated).async {            
             let session = URLSession(configuration: self.sessionConfiguration)
             let task = session.dataTask(with: url, completionHandler: { (data, response, error) in
                 guard let data = data else { completion(nil); return }

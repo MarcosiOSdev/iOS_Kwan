@@ -59,7 +59,7 @@ extension FullScreenImageViewController.HandleState : Equatable {
             return true
         case (.normal, .normal):
             return true
-        case (.resetScrollView, .resetScrollView):
+        case (.doubleTapOnScrollView, .doubleTapOnScrollView):
             return true
         case (.closingModal, .closingModal):
             return true

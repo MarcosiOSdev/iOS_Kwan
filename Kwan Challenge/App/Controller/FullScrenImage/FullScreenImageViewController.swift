@@ -21,12 +21,14 @@ class FullScreenImageViewController: UIViewController {
     }
     @IBOutlet weak var imageView: UIImageView!
     var urlString: String?
-    
+    var imageManager: ImageManager = ImageManager()
     var state: HandleState? {
         didSet {
             performStateHandle()
         }
     }
+    /// zoomInOut, when is true means that default zoom 1
+    var normalZoom: Bool = true
 }
 
 //MARK: - StateHandle PresentationLogic
@@ -48,8 +50,8 @@ extension FullScreenImageViewController {
         /// - gesture: gesture of Pan
         case panGesture(UIPanGestureRecognizer)
         
-        /// ResetZoom and Scale
-        case resetScrollView
+        /// get event double tap
+        case doubleTapOnScrollView
         
         /// Dimiss View
         case closingModal
@@ -66,8 +68,9 @@ extension FullScreenImageViewController {
         case .panGesture(let gesture):
             self.panGesture(gesture)
             
-        case .resetScrollView:
-            self.resetZoom()
+        case .doubleTapOnScrollView:
+            self.normalZoom ? self.zoom2x() : self.resetZoom()
+            self.normalZoom = !self.normalZoom
             
         case .closingModal:
             self.dismiss()
@@ -103,19 +106,14 @@ extension FullScreenImageViewController {
     }
     
     private func setupImageView() {
-        guard let urlString = self.urlString,
-            let url = URL(string: urlString) else { return }
-        
-        DispatchQueue.global(qos: .background).async {
-            URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
-                performUIUpdate {
-                    if let data = data {
-                        self?.imageView.image = UIImage(data: data)
-                    }
-                    
-                    SVProgressHUD.dismiss()
-                    self?.state = .normal
+        guard let urlString = self.urlString else { return }        
+        self.imageManager.get(by: urlString) { [weak self] (data, error) in
+            performUIUpdate {
+                if let data = data {
+                    self?.imageView.image = UIImage(data: data)
                 }
+                SVProgressHUD.dismiss()
+                self?.state = .normal
             }
         }
     }
@@ -137,6 +135,10 @@ extension FullScreenImageViewController {
                 }
             }
         }
+    }
+    private func zoom2x() {
+        self.contentScrollView.setZoomScale(2, animated: true)        
+        self.state = .normal
     }
     private func resetZoom() {
         self.contentScrollView.setZoomScale(1, animated: true)
@@ -161,7 +163,7 @@ extension FullScreenImageViewController {
     }
     // Reset the image and scrollview , removing zoom
     @objc func doubleTapGesture(_ gesture: UITapGestureRecognizer) {
-        self.state = .resetScrollView
+        self.state = .doubleTapOnScrollView
     }
     // Dismiss button
     @IBAction func didTapCloseButton(_ sender: UIButton?) {

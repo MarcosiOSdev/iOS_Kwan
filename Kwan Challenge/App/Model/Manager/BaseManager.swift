@@ -39,6 +39,8 @@ class BaseManager{
             return "Opss... Configuration wrong. Call to support."
         case .unexpected:
             return "Oops! Something went wrong!\nHelp us improve your experience by sending an error report"
+        case .noData:
+            return ""
         }
         
     }
