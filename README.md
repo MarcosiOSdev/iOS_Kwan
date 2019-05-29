@@ -15,9 +15,15 @@ This project is for my test for Kwan.
 ## Start the project
 
 //install the cocoapods
-pod init 
-pod install
+    
+    pod init 
+    pod install
 
+Attention : Cocoapods there are some bugs in build of project with
+Command CompileSwift failed with a nonzero exit code in Xcode 10 [duplicate]
+If this happend run this :
+    
+    pod install --repo-update
 
 ## Architecture:
 

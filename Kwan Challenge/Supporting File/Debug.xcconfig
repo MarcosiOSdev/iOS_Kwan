@@ -13,6 +13,7 @@
 IS_APP_NAME = Kwan Challenge Dev
 IS_APP_VERSION = 1.0
 IS_APP_BUNDLE_ID = com.mfelipesp.Kwan-Challenge-Dev
+IS_APP_ICON = AppIcon
 
 //Backend information
 IS_API_DOMAIN = api.flickr.com
