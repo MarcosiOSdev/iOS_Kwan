@@ -15,6 +15,7 @@ enum ResultCustomService<Success, Error> {
 }
 
 enum CustomErrorService: Error {
+    case noData
     case formatterJson
     case conectionApi
     case invalidRequest

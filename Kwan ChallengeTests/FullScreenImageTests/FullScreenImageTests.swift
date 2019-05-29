@@ -75,20 +75,32 @@ https://live.staticflickr.com/5800/31456463045_5a0af4ddc8_s.jpg
         
     }
     
-    func testResetZoomStateFullScreenVC() {
+    func testZoomStateFullScreenVC() {
         
         _ = self.fullScreenVC.view //ViewDidLoad
         
-        // SETUP VIEWS
-        self.fullScreenVC.state = .resetScrollView
+        // SETUP VIEWS on double tap for zoom
+        self.fullScreenVC.state = .doubleTapOnScrollView
         
-        //Content ScrollView for zero
+        //Content ScrollView is 2 , Zoom in Image
+        XCTAssertEqual(self.fullScreenVC.contentScrollView.zoomScale, 2.0)
+        
+        //THEN state is normal
+        XCTAssertEqual(self.fullScreenVC.state, .normal)
+        
+        
+        //Removing Zoom
+        self.fullScreenVC.state = .doubleTapOnScrollView
+        
+        //Content ScrollView is 2 , Zoom in Image
         XCTAssertEqual(self.fullScreenVC.contentScrollView.zoomScale, 1.0)
         
+        //And Center the image
         XCTAssertEqual(self.fullScreenVC.contentScrollView.contentOffset, CGPoint.zero)
         
         //THEN state is normal
         XCTAssertEqual(self.fullScreenVC.state, .normal)
+        
     }
     
     func testClosingStateFullScreenVC() {
@@ -97,7 +109,6 @@ https://live.staticflickr.com/5800/31456463045_5a0af4ddc8_s.jpg
         
         // SETUP VIEWS
         self.fullScreenVC.state = .closingModal
-        
     }
 
 }
