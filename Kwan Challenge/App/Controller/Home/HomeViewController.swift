@@ -151,9 +151,6 @@ extension HomeViewController {
         fullScreen.view.frame = self.view.frame
         self.view.addSubview(fullScreen.view)
         fullScreen.didMove(toParent: self)
-        
-
-//        self.present(fullScreen, animated: true)
     }
 }
 
