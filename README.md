@@ -12,6 +12,13 @@ This project is for my test for Kwan.
 ![alt_text](/coverageUnitTest.png)
 
 
+## Start the project
+
+//install the cocoapods
+pod init 
+pod install
+
+
 ## Architecture:
 
 ### Supporting File contains :
