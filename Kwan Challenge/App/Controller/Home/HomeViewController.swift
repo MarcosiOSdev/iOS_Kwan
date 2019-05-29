@@ -145,7 +145,15 @@ extension HomeViewController {
     func imageOnFullscreen(_ photoView: PhotoModel.PhotoView) {
         let fullScreen = FullScreenImageViewController.loadFromNib()
         fullScreen.urlString = photoView.sourceLarge
-        self.present(fullScreen, animated: true)
+        
+        //PopUp 
+        self.addChild(fullScreen)
+        fullScreen.view.frame = self.view.frame
+        self.view.addSubview(fullScreen.view)
+        fullScreen.didMove(toParent: self)
+        
+
+//        self.present(fullScreen, animated: true)
     }
 }
 

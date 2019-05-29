@@ -26,6 +26,30 @@ class FullScreenImageViewController: UIViewController, UIScrollViewDelegate {
         self.tabBarController?.tabBar.isHidden = true
         setupImageView()
         SVProgressHUD.show(with: .black)
+        
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureRecognizer(_:)))
+        self.view.addGestureRecognizer(panGesture)
+    }
+    
+    @objc func panGestureRecognizer(_ gesture: UIPanGestureRecognizer) {
+        let translation = gesture.translation(in: self.view)
+        view.frame.origin = translation
+        
+        if gesture.state == .ended {
+            let velocity = gesture.velocity(in: self.view)
+            
+            let totalY = UIScreen.main.bounds.height
+            let limit = (totalY / 2) - 96
+            
+            if velocity.y >= 800 || limit < translation.y {
+                self.didTapCloseButton(nil)
+            } else {
+                UIView.animate(withDuration: 0.4) {
+                    self.view.frame.origin = CGPoint(x: 0, y: 0)
+                }
+            }
+        }
+        
     }
     
     func setupImageView() {
@@ -43,11 +67,12 @@ class FullScreenImageViewController: UIViewController, UIScrollViewDelegate {
         }
     }
 
-    @IBAction func didTapCloseButton(_ sender: UIButton) {
+    @IBAction func didTapCloseButton(_ sender: UIButton?) {
         self.navigationController?.isNavigationBarHidden = false
         self.tabBarController?.tabBar.isHidden = false
-        self.dismiss(animated: true)
+        self.view.removeFromSuperview()
     }
+    
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
     }

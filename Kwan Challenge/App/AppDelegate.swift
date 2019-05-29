@@ -20,7 +20,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func setupRootViewController() {
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.rootViewController = HomeViewController.loadFromNib()
+        
+        let rootVC = HomeViewController.loadFromNib()
+        rootVC.title = "Desafio - Challenge"
+        let navigation = UINavigationController(rootViewController: rootVC)
+        self.window?.rootViewController = navigation
         self.window?.makeKeyAndVisible()
     }
 }

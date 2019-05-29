@@ -29,6 +29,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
                         </imageView>
                     </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="ZNU-B6-X9P" firstAttribute="width" secondItem="ZGM-iZ-EGl" secondAttribute="width" id="3X3-Er-Qo1"/>
                         <constraint firstItem="ZNU-B6-X9P" firstAttribute="leading" secondItem="ZGM-iZ-EGl" secondAttribute="leading" id="D6z-wr-ZWy"/>
@@ -53,7 +54,6 @@
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
             <constraints>
                 <constraint firstItem="0RA-lN-bfH" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="11" id="4bI-t5-K8y"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ZGM-iZ-EGl" secondAttribute="trailing" id="GoC-AD-vwR"/>
