@@ -39,7 +39,7 @@
                     </constraints>
                 </scrollView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0RA-lN-bfH">
-                    <rect key="frame" x="18" y="55" width="72" height="86"/>
+                    <rect key="frame" x="334" y="55" width="72" height="86"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="72" id="4yy-jt-UT7"/>
                         <constraint firstAttribute="height" constant="86" id="OuB-k8-df9"/>
@@ -58,8 +58,8 @@
                 <constraint firstItem="0RA-lN-bfH" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="11" id="4bI-t5-K8y"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ZGM-iZ-EGl" secondAttribute="trailing" id="GoC-AD-vwR"/>
                 <constraint firstItem="ZGM-iZ-EGl" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Hgu-KN-t0N"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="0RA-lN-bfH" secondAttribute="trailing" constant="8" id="lae-DQ-WXb"/>
                 <constraint firstItem="ZGM-iZ-EGl" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="psQ-1b-LrN"/>
-                <constraint firstItem="0RA-lN-bfH" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="18" id="tHS-bl-KxQ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="ZGM-iZ-EGl" secondAttribute="bottom" id="tJg-dd-sx3"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

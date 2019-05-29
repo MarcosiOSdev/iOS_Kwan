@@ -24,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="sdh-AS-lkK" customClass="PhotosCollectionView" customModule="Kwan_Challenge" customModuleProvider="target">
-                    <rect key="frame" x="8" y="52" width="398" height="810"/>
+                    <rect key="frame" x="8" y="60" width="398" height="802"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="4" minimumInteritemSpacing="4" id="BUW-jY-TjZ">
                         <size key="itemSize" width="50" height="50"/>
@@ -58,7 +58,7 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="sdh-AS-lkK" secondAttribute="bottom" id="7Mb-UB-IDk"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="sdh-AS-lkK" secondAttribute="trailing" constant="8" id="MBv-5E-BR3"/>
                 <constraint firstItem="oR7-De-Ul2" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="MRT-Nz-3eW"/>
-                <constraint firstItem="sdh-AS-lkK" firstAttribute="top" secondItem="oR7-De-Ul2" secondAttribute="bottom" constant="8" id="qTS-9C-2ew"/>
+                <constraint firstItem="sdh-AS-lkK" firstAttribute="top" secondItem="oR7-De-Ul2" secondAttribute="bottom" constant="16" id="qTS-9C-2ew"/>
                 <constraint firstItem="sdh-AS-lkK" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="8" id="s9r-Dm-1eM"/>
                 <constraint firstItem="oR7-De-Ul2" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="wjv-oH-E1e"/>
             </constraints>

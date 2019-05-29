@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class FullScreenImageViewController: UIViewController, UIScrollViewDelegate {
 
@@ -24,6 +25,7 @@ class FullScreenImageViewController: UIViewController, UIScrollViewDelegate {
         self.navigationController?.isNavigationBarHidden = true
         self.tabBarController?.tabBar.isHidden = true
         setupImageView()
+        SVProgressHUD.show(with: .black)
     }
     
     func setupImageView() {
@@ -35,6 +37,7 @@ class FullScreenImageViewController: UIViewController, UIScrollViewDelegate {
             if let dataImage = try? Data(contentsOf: url) {
                 performUIUpdate {
                     self.imageView.image = UIImage(data: dataImage)
+                    SVProgressHUD.dismiss()
                 }
             }
         }
