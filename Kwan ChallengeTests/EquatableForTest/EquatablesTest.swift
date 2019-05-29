@@ -47,9 +47,30 @@ extension PhotosCollectionView.HandleState : Equatable {
             return false
         }
     }
-    
-    
 }
+
+extension FullScreenImageViewController.HandleState : Equatable {
+    public static func == (lhs: FullScreenImageViewController.HandleState, rhs: FullScreenImageViewController.HandleState) -> Bool {
+        
+        switch (lhs, rhs) {
+        case (.setupViews, .setupViews):
+            return true
+        case (.fetchingImage, .fetchingImage):
+            return true
+        case (.normal, .normal):
+            return true
+        case (.resetScrollView, .resetScrollView):
+            return true
+        case (.closingModal, .closingModal):
+            return true
+        case (.panGesture(let lhsValue), .panGesture(let rhsValue)):
+            return lhsValue == rhsValue
+        default:
+            return false
+        }
+    }
+}
+
 
 extension SearchPhotosModel.SearchPhotosView : Equatable {
     public static func == (lhs: SearchPhotosModel.SearchPhotosView, rhs: SearchPhotosModel.SearchPhotosView) -> Bool {

@@ -50,6 +50,54 @@ https://live.staticflickr.com/5800/31456463045_5a0af4ddc8_s.jpg
         // Tapped on Button X
         self.fullScreenVC.didTapCloseButton(UIButton())        
     }
-
+    
+    func testSetupStateFullScreenVC() {
+        let source = """
+https://live.staticflickr.com/5800/31456463045_5a0af4ddc8_s.jpg
+"""
+        self.fullScreenVC.urlString = source
+        
+        _ = self.fullScreenVC.view //ViewDidLoad
+        
+        // Init with fetching state
+        XCTAssertNotNil(self.fullScreenVC.state)
+        
+        // SETUP VIEWS
+        self.fullScreenVC.state = .setupViews
+        
+        //Downloading Image.
+        let cancelExpectation = expectation(description: "Downloading Image")
+        cancelExpectation.isInverted = true
+        waitForExpectations(timeout: 5.0, handler: nil)
+        
+        //Then state is normal
+        XCTAssertEqual(self.fullScreenVC.state, .normal)
+        
+    }
+    
+    func testResetZoomStateFullScreenVC() {
+        
+        _ = self.fullScreenVC.view //ViewDidLoad
+        
+        // SETUP VIEWS
+        self.fullScreenVC.state = .resetScrollView
+        
+        //Content ScrollView for zero
+        XCTAssertEqual(self.fullScreenVC.contentScrollView.zoomScale, 1.0)
+        
+        XCTAssertEqual(self.fullScreenVC.contentScrollView.contentOffset, CGPoint.zero)
+        
+        //THEN state is normal
+        XCTAssertEqual(self.fullScreenVC.state, .normal)
+    }
+    
+    func testClosingStateFullScreenVC() {
+        
+        _ = self.fullScreenVC.view //ViewDidLoad
+        
+        // SETUP VIEWS
+        self.fullScreenVC.state = .closingModal
+        
+    }
 
 }

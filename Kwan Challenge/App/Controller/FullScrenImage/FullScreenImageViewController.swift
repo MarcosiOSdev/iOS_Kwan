@@ -9,29 +9,117 @@
 import UIKit
 import SVProgressHUD
 
-class FullScreenImageViewController: UIViewController, UIScrollViewDelegate {
+class FullScreenImageViewController: UIViewController {
 
     @IBOutlet weak var contentScrollView: UIScrollView! {
         didSet {
             self.contentScrollView.delegate = self
+            let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(doubleTapGesture(_:)))
+            doubleTapGesture.numberOfTapsRequired = 2
+            self.contentScrollView.addGestureRecognizer(doubleTapGesture)
         }
     }
     @IBOutlet weak var imageView: UIImageView!
-    
     var urlString: String?
     
+    var state: HandleState? {
+        didSet {
+            performStateHandle()
+        }
+    }
+}
+
+//MARK: - StateHandle PresentationLogic
+extension FullScreenImageViewController {
+    
+    /// Enum of State of View
+    public enum HandleState {
+        
+        /// config every views and scrolls
+        case setupViews
+        
+        /// get image in API
+        case fetchingImage
+        
+        /// state in peace, state is normal
+        case normal
+        
+        /// enum1 Description
+        /// - gesture: gesture of Pan
+        case panGesture(UIPanGestureRecognizer)
+        
+        /// ResetZoom and Scale
+        case resetScrollView
+        
+        /// Dimiss View
+        case closingModal
+    }
+    
+    private func performStateHandle() {
+        switch self.state! {
+        case .setupViews:
+            self.loading()
+            
+        case .fetchingImage:
+            setupImageView()
+            
+        case .panGesture(let gesture):
+            self.panGesture(gesture)
+            
+        case .resetScrollView:
+            self.resetZoom()
+            
+        case .closingModal:
+            self.dismiss()
+            
+        case .normal:
+            break
+        }
+    }
+    
+}
+
+//MARK: - Lifecycle ViewController
+extension FullScreenImageViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.state = .setupViews
+    }
+}
+
+//MARK: - Others Functions
+extension FullScreenImageViewController {
+    
+    private func loading() {
+        SVProgressHUD.show()
+        
         self.navigationController?.isNavigationBarHidden = true
         self.tabBarController?.tabBar.isHidden = true
-        setupImageView()
-        SVProgressHUD.show(with: .black)
         
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureRecognizer(_:)))
         self.view.addGestureRecognizer(panGesture)
+        
+        self.state = .fetchingImage
     }
     
-    @objc func panGestureRecognizer(_ gesture: UIPanGestureRecognizer) {
+    private func setupImageView() {
+        guard let urlString = self.urlString,
+            let url = URL(string: urlString) else { return }
+        
+        DispatchQueue.global(qos: .background).async {
+            URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
+                performUIUpdate {
+                    if let data = data {
+                        self?.imageView.image = UIImage(data: data)
+                    }
+                    
+                    SVProgressHUD.dismiss()
+                    self?.state = .normal
+                }
+            }
+        }
+    }
+    private func panGesture(_ gesture: UIPanGestureRecognizer){
         let translation = gesture.translation(in: self.view)
         view.frame.origin = translation
         
@@ -42,37 +130,47 @@ class FullScreenImageViewController: UIViewController, UIScrollViewDelegate {
             let limit = (totalY / 2) - 96
             
             if velocity.y >= 800 || limit < translation.y {
-                self.didTapCloseButton(nil)
+                self.state = .closingModal
             } else {
                 UIView.animate(withDuration: 0.4) {
                     self.view.frame.origin = CGPoint(x: 0, y: 0)
                 }
             }
         }
-        
     }
-    
-    func setupImageView() {
-        
-        guard let urlString = self.urlString,
-            let url = URL(string: urlString) else { return }
-        
-        DispatchQueue.global(qos: .background).async {
-            if let dataImage = try? Data(contentsOf: url) {
-                performUIUpdate {
-                    self.imageView.image = UIImage(data: dataImage)
-                    SVProgressHUD.dismiss()
-                }
-            }
-        }
+    private func resetZoom() {
+        self.contentScrollView.setZoomScale(1, animated: true)
+        self.contentScrollView.setContentOffset(.zero, animated: true)
+        self.state = .normal
     }
-
-    @IBAction func didTapCloseButton(_ sender: UIButton?) {
+    private func dismiss() {
+        SVProgressHUD.dismiss()
         self.navigationController?.isNavigationBarHidden = false
         self.tabBarController?.tabBar.isHidden = false
         self.view.removeFromSuperview()
+        self.view = nil
     }
+}
+
+// Actions and Events
+extension FullScreenImageViewController {
     
+    // Swipe Down and Dismiss
+    @objc func panGestureRecognizer(_ gesture: UIPanGestureRecognizer) {
+        self.state = .panGesture(gesture)
+    }
+    // Reset the image and scrollview , removing zoom
+    @objc func doubleTapGesture(_ gesture: UITapGestureRecognizer) {
+        self.state = .resetScrollView
+    }
+    // Dismiss button
+    @IBAction func didTapCloseButton(_ sender: UIButton?) {
+        self.state = .closingModal
+    }
+}
+
+
+extension FullScreenImageViewController: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
     }
