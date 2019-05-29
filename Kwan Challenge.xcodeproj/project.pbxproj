@@ -295,8 +295,8 @@
 		187470612297778500D4C697 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				1819E921229CCC5500BFC1DA /* FullScrenImage */,
 				1874702F22976EF300D4C697 /* LaunchScreen.storyboard */,
+				1819E921229CCC5500BFC1DA /* FullScrenImage */,
 				1869E3252299F9F400084DD6 /* Photos */,
 				1874706922977D3800D4C697 /* Home */,
 			);

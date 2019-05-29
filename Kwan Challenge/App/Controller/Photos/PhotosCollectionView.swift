@@ -64,17 +64,6 @@ class PhotosCollectionView: UICollectionView {
     
     var listModelCache = [Int: PhotoModel.PhotoView]()
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.initCustom()
-    }
-    
-    func initCustom() {
-        self.register(ItemCollectionViewCell.nib, forCellWithReuseIdentifier: ItemCollectionViewCell.reuseCell)
-        self.delegate = self
-        self.dataSource = self
-    }
-    
     
     //MARK: Vars for CollectionView
     var portraitScreenSize: CGSize?
@@ -102,7 +91,23 @@ class PhotosCollectionView: UICollectionView {
         return CGSize(width: width, height: height) //Square
     }
     
+    //MARK - Initialization
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.initCustom()
+    }
+    func initCustom() {
+        self.register(ItemCollectionViewCell.nib, forCellWithReuseIdentifier: ItemCollectionViewCell.reuseCell)
+        self.delegate = self
+        self.dataSource = self
+        
+        let flow = self.collectionViewLayout as! UICollectionViewFlowLayout
+        flow.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
+        flow.minimumInteritemSpacing = 10
+        flow.minimumLineSpacing = 10
+    }
 }
+
 
 //MARK : - Presentation Logic with HandleState, get all state in ViewController
 extension PhotosCollectionView {
@@ -166,6 +171,7 @@ extension PhotosCollectionView: UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return self.isPortrate ? self.sizeOfCellInPortrate : self.sizeOfCellInLandscape
     }
+    
     
     private func verifyMoreLoading(at indexPath: IndexPath) {
         if hasMoreItem && !isGettingMoreItem{
