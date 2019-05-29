@@ -40,13 +40,13 @@
                     </constraints>
                 </scrollView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0RA-lN-bfH">
-                    <rect key="frame" x="334" y="55" width="72" height="86"/>
+                    <rect key="frame" x="356" y="55" width="50" height="50"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="72" id="4yy-jt-UT7"/>
-                        <constraint firstAttribute="height" constant="86" id="OuB-k8-df9"/>
+                        <constraint firstAttribute="width" constant="50" id="4yy-jt-UT7"/>
+                        <constraint firstAttribute="height" constant="50" id="OuB-k8-df9"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="43"/>
-                    <state key="normal" title="X">
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="30"/>
+                    <state key="normal" title="x">
                         <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <connections>
