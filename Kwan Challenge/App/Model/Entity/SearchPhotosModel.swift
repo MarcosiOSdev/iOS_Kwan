@@ -37,7 +37,7 @@ struct SearchPhotosModel {
 }
 
 
-// Model for View
+//MARK: - Model for View
 extension SearchPhotosModel {
     struct SearchPhotosView {
         var page: Int = 0
@@ -50,7 +50,7 @@ extension SearchPhotosModel {
 }
 
 
-// Request Model for GET flickr.photos.search
+//MARK: - Request Model for GET flickr.photos.search
 extension SearchPhotosModel {
     struct RequestSearchPhotoModel {
         let apiKey: String
@@ -77,7 +77,7 @@ extension SearchPhotosModel {
 }
 
 
-// Response Model for GET flickr.photos.search
+//MARK: - Response Model for GET flickr.photos.search
 extension SearchPhotosModel {
     struct ResponseSearchPhotoModel: Codable {
         let photos: Photos

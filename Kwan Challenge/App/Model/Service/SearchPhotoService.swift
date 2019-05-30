@@ -17,6 +17,12 @@ protocol SearchPhotoServiceRef: AnyObject {
 
 class SearchPhotoService: BaseService, SearchPhotoServiceRef {
     
+    /**
+     This method get photoSearch in an API.
+     - Parameters:
+        - requestModel: This a method that need for Request.
+        - completeHandle: This is a return of callback, return the Response Model
+     */
     func photoSearch(requestModel: SearchPhotosModel.RequestSearchPhotoModel, completeHandle handler: @escaping SearchPhotoService.CompleteHandlePhotoSearch) {
         
         let restApi = RestApi()

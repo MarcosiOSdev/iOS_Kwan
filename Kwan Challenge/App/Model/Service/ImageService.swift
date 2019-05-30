@@ -13,8 +13,16 @@ protocol ImageServiceRef: AnyObject {
 }
 
 class ImageService: BaseService, ImageServiceRef {
+    
+    
+    /**
+     
+     This method just do the get in an API
+     - Parameters:
+        -url: Type of URL for get the data
+        -completed: This is a handle with ResultCustomService types Data and Error.
+     */
     func get(by url: URL, completed handler: @escaping (ResultCustomService<Data, CustomErrorService>) -> Void) {
-        
         RestApi().getData(fromURL: url) { data in
             if let data = data {
                 handler(.success(data))
@@ -22,6 +30,5 @@ class ImageService: BaseService, ImageServiceRef {
             }
             handler(.error(.noData))
         }
-        
     }
 }

@@ -9,6 +9,8 @@
 import Foundation
 
 /// performUI is for Test
+/// DispatchQueue.main.async(execute: closure) stop all over Unit Test
+/// performUI doen't stop the Unit Tests.
 func performUIUpdate(using closure: @escaping () -> Void) {
     // If we are already on the main thread, execute the closure directly
     if Thread.isMainThread {
@@ -21,11 +23,11 @@ func performUIUpdate(using closure: @escaping () -> Void) {
 class BaseManager{
     
     /**
-      Create a error for user.
-        Error About connection.
+     
+     Create a error for user. Error About connection.
      
      - Parameters:
-     - error: Error from Service that will be dealt with.
+        - error: Error from Service that will be dealt with.
      
      - Returns: The message for user.
      */

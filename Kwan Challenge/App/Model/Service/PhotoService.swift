@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import os.log
 
 protocol PhotoServiceRef: AnyObject {
     typealias GetPhotoServiceHandler = (ResultCustomService<PhotoModel.ResponsePhotoModel, CustomErrorService>) -> Void
@@ -17,6 +16,12 @@ protocol PhotoServiceRef: AnyObject {
 
 class PhotoService: BaseService, PhotoServiceRef {
     
+    /**
+     This method get photoSearch in an API.
+     - Parameters:
+        - by: This a method that need for Request.
+        - handler: This is a return of callback, return the Response Model
+     */
     func get(by model: PhotoModel.RequestPhotoModel,
              handler: @escaping PhotoService.GetPhotoServiceHandler) {
         let restAPI = RestApi()

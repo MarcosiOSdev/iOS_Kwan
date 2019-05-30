@@ -32,10 +32,6 @@ struct PhotoModel {
     }
 }
 
-
-
-
-
 //MARK: Just show in the view.
 extension PhotoModel {
     struct PhotoView {
@@ -46,7 +42,7 @@ extension PhotoModel {
     }
 }
 
-
+//MARK: - Model for Request in GET flickr.photos.getSizes
 extension PhotoModel {
     struct RequestPhotoModel {
         let apiKey: String

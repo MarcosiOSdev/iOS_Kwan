@@ -7,18 +7,32 @@
 //
 
 import Foundation
-import os.log
 
+/// Class has Bussines logic, translate with ViewModel with ResponseModel and RequestModel.
+/// RequestModel is using in all Request for API and
+/// ResponseModel is using in all Response from API.
 class SearchPhotoManager: BaseManager {
     
     var photoModel = SearchPhotosModel()
     let service: SearchPhotoServiceRef
+    
+    /// Initialization With Dependency Injection,
+    /// It's the most used in Unit Test for mocks
     init(service: SearchPhotoServiceRef = SearchPhotoService() ) {
         self.service = service
     }
     
     
-    
+    /**
+     
+     FetchDatas(page: completing:) get photos and photos with Id for next service.
+     Need the pages and completing for work.
+     
+     - Parameters:
+        - page: Page is default value equals 1, Case you set this parameter with nil, the page value will be 1. for example.
+        - completing: There are result about this called for the API the of searchPhoto. Result is a SearchPhotoView
+     
+     */
     func fetchDatas(page: Int? = nil, completing: @escaping (_ success: SearchPhotosModel.SearchPhotosView) -> Void) {
 
         let pageInt = page ?? 1 // first page is always 1
